@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 export default class MapRepository {
   static MAP_PATH = "data/maps/maps.json";
 
