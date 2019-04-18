@@ -1,4 +1,4 @@
-import MapEndpoint from "./src/maps/MapEndpoint";
+import {deleteMapHandler, getMapHandler, getMapsHandler, putMapHandler} from "./src/maps/MapRequestHandlers";
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-app.get("/maps", MapEndpoint.getMapsHandler);
-app.get("/maps/:mapId", MapEndpoint.getMapHandler);
-app.post("/maps", MapEndpoint.putMapHandler);
-app.delete("/maps", MapEndpoint.deleteMapHandler);
+app.get("/maps", getMapsHandler);
+app.get("/maps/:mapId", getMapHandler);
+app.post("/maps", putMapHandler);
+app.delete("/maps", deleteMapHandler);
