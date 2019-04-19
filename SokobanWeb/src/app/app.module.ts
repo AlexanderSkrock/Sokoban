@@ -2,15 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {RoutingModule} from './routing/routing.module';
+import {RoutingModule} from './modules/routing/routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialComponentModulesModule} from './material-component-modules/material-component-modules.module';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { GameComponent } from './game/game.component';
-import { TileEditorComponent } from './tile-editor/tile-editor.component';
-import { MapEditorComponent } from './map-editor/map-editor.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import {MaterialComponentModulesModule} from './modules/material-component-modules/material-component-modules.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { GameComponent } from './pages/game/game.component';
+import { TileEditorComponent } from './pages/tile-editor/tile-editor.component';
+import { MapEditorComponent } from './pages/map-editor/map-editor.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
