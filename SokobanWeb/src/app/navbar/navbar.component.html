@@ -1,0 +1,15 @@
+<mat-toolbar class="mat-toolbar mat-primary">
+  <mat-toolbar-row>
+    <span>
+      Sokoban
+    </span>
+    <span class="fill-remaining-space"></span>
+    <a
+      *ngFor="let entry of entries"
+      [routerLink]="entry.path"
+      class="mat-button navbar-entry"
+      >
+      {{ entry.title }}
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>
