@@ -3,21 +3,6 @@ import Point from './Point';
 import Tile from './Tile';
 
 export default class EditableSokobanMap extends SokobanMap {
-  isOpen(point: Point): boolean {
-    const isInMap = point.isIn(0, 0, this.getWidth(), this.getHeight());
-    const tileIsNotSolid = this.getTileAt(point) && !this.getTileAt(point).solid;
-    const hasNoBox = !this.hasBoxAt(point);
-    return isInMap && tileIsNotSolid && hasNoBox;
-  }
-
-  hasCollectableAt(point: Point): boolean {
-    return this.jewels.some(point.equals);
-  }
-
-  hasBoxAt(point: Point): boolean {
-    return this.boxes.some(point.equals);
-  }
-
   putTileAt(tile: Tile, point: Point): void  {
     if (!point.isIn(0, 0, this.getWidth(), this.getHeight())) {
       this.tiles[point.x][point.y] = tile;
@@ -45,18 +30,18 @@ export default class EditableSokobanMap extends SokobanMap {
     }
   }
 
-  putCollectableAt(point: Point): void  {
+  putCollectibleAt(point: Point): void  {
     if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      const existsAlready = this.jewels.some(point.equals);
+      const existsAlready = this.collectibles.some(point.equals);
       if (!existsAlready) {
-        this.jewels.push(point);
+        this.collectibles.push(point);
       }
     }
   }
 
-  removeCollectableAt(point: Point): void {
+  removeCollectibleAt(point: Point): void {
     if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.jewels.filter(jewelPoint => !jewelPoint.equals(point));
+      this.collectibles.filter(jewelPoint => !jewelPoint.equals(point));
     }
   }
 

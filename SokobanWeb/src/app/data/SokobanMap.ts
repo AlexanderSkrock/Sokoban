@@ -5,7 +5,7 @@ export default class SokobanMap {
   id: number;
   playerStartPosition: Point;
   tiles: Tile[][];
-  jewels: Point[];
+  collectibles: Point[];
   boxes: Point[];
 
   getWidth(): number {
@@ -25,5 +25,20 @@ export default class SokobanMap {
     }
     console.error('coordinates out of map');
     return undefined;
+  }
+
+  isOpen(point: Point): boolean {
+    const isInMap = point.isIn(0, 0, this.getWidth(), this.getHeight());
+    const tileIsNotSolid = this.getTileAt(point) && !this.getTileAt(point).solid;
+    const hasNoBox = !this.hasBoxAt(point);
+    return isInMap && tileIsNotSolid && hasNoBox;
+  }
+
+  hasCollectibleAt(point: Point): boolean {
+    return this.collectibles.some(point.equals);
+  }
+
+  hasBoxAt(point: Point): boolean {
+    return this.boxes.some(point.equals);
   }
 }
