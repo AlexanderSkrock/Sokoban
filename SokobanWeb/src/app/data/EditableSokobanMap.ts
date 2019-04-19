@@ -45,6 +45,21 @@ export default class EditableSokobanMap extends SokobanMap {
     }
   }
 
+  putCollectableAt(point: Point): void  {
+    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
+      const existsAlready = this.jewels.some(point.equals);
+      if (!existsAlready) {
+        this.jewels.push(point);
+      }
+    }
+  }
+
+  removeCollectableAt(point: Point): void {
+    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
+      this.jewels.filter(jewelPoint => !jewelPoint.equals(point));
+    }
+  }
+
   placePlayer(point: Point): void {
     if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
       this.playerStartPosition = point;
