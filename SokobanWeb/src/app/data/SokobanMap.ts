@@ -19,11 +19,11 @@ export default class SokobanMap {
     return this.tiles ? this.tiles.length : 0;
   }
 
-  getTileAt(x: number, y: number): Tile {
-    if (x < 0 || x >= this.getHeight() || y < 0 || y >= this.getWidth()) {
-      console.error('coordinates out of map');
-      return undefined;
+  getTileAt(point: Point): Tile {
+    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
+      return this.tiles[point.x][point.y];
     }
-    return this.tiles[x][y];
+    console.error('coordinates out of map');
+    return undefined;
   }
 }
