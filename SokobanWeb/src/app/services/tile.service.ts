@@ -17,15 +17,15 @@ export class TileService {
     return this.http.get<Tile[]>(TileService.TILES_PATH);
   }
 
-  getTile(id: number): Observable<Tile> {
-    return this.http.get<Tile>(`${TileService.TILES_PATH}/${id}`);
+  getTile(tileId: number): Observable<Tile> {
+    return this.http.get<Tile>(`${TileService.TILES_PATH}/${tileId}`);
   }
 
   putTile(tile: Tile): void {
     this.http.post(`${TileService.TILES_PATH}/${tile.id}`, tile);
   }
 
-  deleteTile(tile: Tile): void {
-    this.http.delete(`${TileService.TILES_PATH}/${tile.id}`);
+  deleteTile(tileId: number): void {
+    this.http.delete(`${TileService.TILES_PATH}/${tileId}`);
   }
 }

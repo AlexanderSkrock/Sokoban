@@ -16,15 +16,15 @@ export class MapService {
     return this.http.get<SokobanMap[]>(MapService.MAPS_PATH);
   }
 
-  getMap(id: number): Observable<SokobanMap> {
-    return this.http.get<SokobanMap>(`${MapService.MAPS_PATH}/${id}`);
+  getMap(mapId: number): Observable<SokobanMap> {
+    return this.http.get<SokobanMap>(`${MapService.MAPS_PATH}/${mapId}`);
   }
 
   putMap(map: SokobanMap) {
     this.http.post(MapService.MAPS_PATH, map);
   }
 
-  deleteMap(map: SokobanMap) {
-    this.http.delete(`${MapService.MAPS_PATH}/${map.id}`);
+  deleteMap(mapId: number) {
+    this.http.delete(`${MapService.MAPS_PATH}/${mapId}`);
   }
 }
