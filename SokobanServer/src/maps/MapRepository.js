@@ -22,7 +22,7 @@ export default class MapRepository {
 
   static putMap(map, callback)  {
     MapRepository.deleteMap(map, () => {
-      this.getMaps(maps => {
+      MapRepository.getMaps(maps => {
         if(!map.id) {
           map.id = MapRepository.generateId();
         }
