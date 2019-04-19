@@ -11,11 +11,11 @@ export default class EditableSokobanMap extends SokobanMap {
   }
 
   hasCollectableAt(point: Point): boolean {
-    return this.jewels.reduce((value, jewelPoint) => value && jewelPoint.equals(point), true);
+    return this.jewels.some(point.equals);
   }
 
   hasBoxAt(point: Point): boolean {
-    return this.boxes.reduce((value, boxPoint) => value && boxPoint.equals(point), true);
+    return this.boxes.some(point.equals);
   }
 
   putTileAt(tile: Tile, point: Point): void  {
@@ -32,7 +32,7 @@ export default class EditableSokobanMap extends SokobanMap {
 
   putBoxAt(point: Point): void  {
     if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      const existsAlready = this.boxes.find(point.equals) || undefined;
+      const existsAlready = this.boxes.some(point.equals);
       if (!existsAlready) {
         this.boxes.push(point);
       }
