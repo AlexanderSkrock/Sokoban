@@ -1,27 +1,11 @@
-# SokobanWeb
+# Sokoban
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+> In einem einfachen Spielprinzip gilt es, mit einer Spielfigur alle Objekte – meistens sind es Kisten – nacheinander auf die dafür vorgesehenen Zielfelder zu bewegen, wobei es üblicherweise keine Vorgabe gibt, welches Objekt auf welches Zielfeld bewegt werden soll. Die Kisten können von der Spielfigur nur geschoben und nicht gezogen werden, ein Verschieben mehrerer Kisten zugleich ist nicht möglich. Üblicherweise sind die einzig möglichen Bewegungsrichtungen der Spielfigur nach oben, unten, rechts und links, sodass keine diagonalen Züge möglich sind. [(Wikipedia)](https://de.wikipedia.org/wiki/Sokoban)
 
-## Development server
+## SokobanServer
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Dieses Teilprojekt ist ein NodeJS-Server zum Bereitstellen und Persistieren der spielbezogenen Daten.
 
-## Code scaffolding
+## SokobanWeb
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Dieses Teilprojekt ist eine Ausprägung des Spiels als Angular-Anwendung
