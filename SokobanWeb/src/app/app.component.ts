@@ -9,10 +9,10 @@ import {Entry} from './navbar/navbar.component';
 export class AppComponent {
   entries = [
     new Entry('', 'Startseite'),
-    new Entry('', 'Spielen'),
-    new Entry('', 'Tile-Editor'),
-    new Entry('', 'Map-Editor'),
-    new Entry('', 'Einstellungen'),
+    new Entry('/game', 'Spielen'),
+    new Entry('/tile-editor', 'Tile-Editor'),
+    new Entry('/map-editor', 'Map-Editor'),
+    new Entry('/settings', 'Einstellungen'),
   ];
   title = 'Sokoban';
 }
