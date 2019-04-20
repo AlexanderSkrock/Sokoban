@@ -3,10 +3,12 @@ import {deleteTileHandler, getTileHandler, getTilesHandler, putTileHandler} from
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(cors());
 
 app.get("/maps", getMapsHandler);
 app.get("/maps/:mapId", getMapHandler);

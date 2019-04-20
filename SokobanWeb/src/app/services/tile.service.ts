@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Tile from '../data/Tile';
-import {SERVER_URL} from '../../config';
+import {API_PATH} from '../../config';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TileService {
-  static TILES_PATH = `${SERVER_URL}/tiles`;
+  static TILES_PATH = `${API_PATH}/tiles`;
 
   constructor(private http: HttpClient) { }
 

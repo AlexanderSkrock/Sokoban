@@ -1,0 +1,18 @@
+<form (submit)="saveChanges()">
+  <img [src]="getSprite()" alt="Keine Vorschau verfügbar">
+  <label>
+    Sprite
+    <input type="file" name="sprite" accept="image/*" (change)="handleSpriteFileChange($event)">
+  </label>
+  <label>
+    Name
+    <input type="text" name="name"  [value]="getName()" (change)="handleNameChange($event)">
+  </label>
+  <label>
+    Solides Tile?
+    <input type="checkbox" name="solid"  [value]="getIsSolid()" (change)="handleSolidChange($event)">
+  </label>
+  <button type="reset">Zurücksetzen</button>
+  <button type="submit" class="mat-raised-button">Änderungen speichern</button>
+</form>
+<button name="delete" (click)="deleteTile()">Tile löschen</button>

@@ -1,3 +1,4 @@
-<p>
-  tile-editor works!
-</p>
+<div>
+  <app-tile-selector [tiles]="tiles" (selectionChangedEmitter)="setCurrentTile($event)"></app-tile-selector>
+  <app-tile-detail [tile]="currentTile" (tileChangeEmitter)="loadTiles()"></app-tile-detail>
+</div>
