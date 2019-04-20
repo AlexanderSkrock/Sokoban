@@ -13,7 +13,7 @@ export default class MapService {
     MapRepository.putMap(map, callback);
   }
 
-  static deleteMap(map, callback) {
-    MapRepository.deleteMap(map, callback)
+  static deleteMap(mapId, callback) {
+    MapRepository.deleteMap(mapId, callback)
   }
 }

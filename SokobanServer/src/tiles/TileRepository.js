@@ -34,9 +34,9 @@ export default class TileRepository {
     });
   }
 
-  static deleteTile(tileToDelete, callback) {
+  static deleteTile(tileId, callback) {
     TileRepository.getTiles(tiles => {
-      const filteredTiles = tiles.filter(tile => tile.id === tileToDelete.id);
+      const filteredTiles = tiles.filter(tile => tile.id === tileId.id);
       TileRepository.saveTiles(filteredTiles, callback);
     });
   }

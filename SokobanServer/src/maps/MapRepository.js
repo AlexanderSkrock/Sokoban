@@ -32,9 +32,9 @@ export default class MapRepository {
     });
   }
 
-  static deleteMap(mapToDelete, callback) {
+  static deleteMap(mapId, callback) {
     MapRepository.getMaps(maps => {
-      const filteredMaps = maps.filter(map => map.id === mapToDelete.id);
+      const filteredMaps = maps.filter(map => map.id === mapId);
       MapRepository.saveMaps(filteredMaps, callback);
     });
   }
