@@ -16,7 +16,7 @@ app.post("/maps", putMapHandler);
 app.delete("/maps/:mapId", deleteMapHandler);
 
 app.get("/tiles", getTilesHandler);
-app.get("/tiles/:mapId", getTileHandler);
+app.get("/tiles/:tileId", getTileHandler);
 app.post("/tiles", putTileHandler);
 app.delete("/tiles/:tileId", deleteTileHandler);
 
