@@ -6,6 +6,19 @@
 
 Dieses Teilprojekt ist ein NodeJS-Server zum Bereitstellen und Persistieren der spielbezogenen Daten.
 
+### Schnittstellen:
+
+| HTTP-Methode | Pfad             | Beschreibung                |
+|--------------|------------------|-----------------------------|
+| GET          | "/maps"          | Abfragen aller Maps         |
+| GET          | "/maps/:mapId"   | Abfrage einer Map per ID    |
+| POST         | "/maps"          | Speichern einer Map         |
+| DELETE       | "/maps/:mapId"   | Löschen einer Map           |
+| GET          | "/tiles"         | Abfragen aller Tiles        |
+| GET          | "/tiles/:tileId" | Abfragen eines Tiles per ID |
+| POST         | "/tiles"         | Speichern eines Tiles       |
+| DELETE       | "/tiles/:tileId" | Löschen eines Tiles         |
+
 ## SokobanWeb
 
 Dieses Teilprojekt ist eine Ausprägung des Spiels als Angular-Anwendung
