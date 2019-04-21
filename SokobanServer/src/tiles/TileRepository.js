@@ -10,7 +10,7 @@ export default class TileRepository {
       if(!error && data) {
         tiles = JSON.parse(data)
       }
-      TileRepository.enrichTilesSync(tiles);
+      console.log(`loaded ${tiles.length} tiles`);
       callback(tiles);
     });
   }
@@ -25,41 +25,38 @@ export default class TileRepository {
   static putTile(tile, callback)  {
     TileRepository.deleteTile(tile, () => {
       TileRepository.getTiles(tiles => {
-        if(!tile.id) {
-          tile.id = TileRepository.generateId();
-        }
         const alteredTiles = [ ...tiles, tile ];
-        TileRepository.extractSprite(tile, () => TileRepository.saveTiles(alteredTiles, callback));
+        console.log(`put tile ${tile.name} with id ${tile.id}`);
+        TileRepository.saveTiles(alteredTiles, callback)
       })
     });
   }
 
   static deleteTile(tileId, callback) {
     TileRepository.getTiles(tiles => {
-      const filteredTiles = tiles.filter(tile => tile.id === tileId.id);
+      const filteredTiles = tiles.filter(tile => tile.id !== tileId);
+      console.log(`deleted tile with id ${tileId}`);
       TileRepository.saveTiles(filteredTiles, callback);
     });
   }
 
   static saveTiles(tiles, callback) {
+    console.log(`saved ${tiles.length} tiles`);
     fs.writeFile(TileRepository.TILES_PATH, JSON.stringify(tiles), callback)
   }
 
-  static extractSprite(tile, callback) {
-    const imageFileName = `${tile.id}.png`;
-    const data = tile.sprite;
-    tile.sprite = imageFileName;
-    fs.writeFile(`${TileRepository.TILES_BASE_PATH}${imageFileName}`, data, callback);
+  static writeTileSprite(imageFileName, imageData, encoding, callback) {
+    const path = `${TileRepository.TILES_BASE_PATH}${imageFileName}`;
+    fs.writeFile(path, imageData, encoding, callback)
   }
 
-  static enrichTilesSync(tiles) {
-    tiles.forEach(tile => {
-      const imageFileName = tile.sprite;
-      tile.sprite = fs.readFileSync(`${TileRepository.TILES_BASE_PATH}${imageFileName}`);
-    });
+  static readTileSprite(imageFileName, encoding, callback) {
+    const path = `${TileRepository.TILES_BASE_PATH}${imageFileName}`;
+    fs.readFile(path, encoding, callback);
   }
 
-  static generateId() {
-    return 0;
+  static readTileSpriteSync(imageFileName, encoding) {
+    const path = `${TileRepository.TILES_BASE_PATH}${imageFileName}`;
+    return fs.readFileSync(path, encoding);
   }
 }

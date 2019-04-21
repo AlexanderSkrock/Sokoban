@@ -1,0 +1,23 @@
+<div *ngIf="tile">
+  <form #ngForm="ngForm" (submit)="submit(ngForm)">
+    <div class="column justify-around standard-padding">
+      <app-tile [size]="tileSize" [tile]="tile"></app-tile>
+      <label>
+        Sprite
+        <input type="file" name="file" value="" accept="image/*" (change)="handleFileChange($event)">
+      </label>
+      <label>
+        Name
+        <input type="text" name="name" [(ngModel)]="tile.name">
+      </label>
+      <label>
+        Solid
+        <input type="checkbox" name="solid" [(ngModel)]="tile.solid">
+      </label>
+      <div class="row wrap justify-around">
+        <button type="submit" class="mat-raised-button">Speichern</button>
+        <button type="button" (click)="deleteTile()">Löschen</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SERVER_URL} from '../../config';
+import {API_PATH} from '../../config';
 import SokobanMap from '../data/SokobanMap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  static MAPS_PATH = `${SERVER_URL}/maps`;
+  static MAPS_PATH = `${API_PATH}/maps`;
 
   constructor(private http: HttpClient) { }
 

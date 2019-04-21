@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SERVER_URL} from '../../config';
+import {API_PATH} from '../../config';
 import Score from '../data/Score';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreService {
-  static SCORES_PATH = `${SERVER_URL}/scores`;
+  static SCORES_PATH = `${API_PATH}/scores`;
 
   constructor(private http: HttpClient) { }
 
