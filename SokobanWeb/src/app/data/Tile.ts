@@ -3,4 +3,11 @@ export default class Tile {
   name: string;
   solid: boolean;
   sprite: string;
+
+  constructor() {
+    this.id = undefined;
+    this.name = "";
+    this.solid = undefined;
+    this.sprite = undefined;
+  }
 }

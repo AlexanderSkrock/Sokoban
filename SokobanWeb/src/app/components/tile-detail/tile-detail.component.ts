@@ -1,6 +1,8 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Tile from '../../data/Tile';
 import {TileService} from '../../services/tile.service';
+import {TILE_SIZES} from "../tile/tile.component";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-tile-detail',
@@ -14,68 +16,51 @@ export class TileDetailComponent implements OnInit {
   @Output()
   tileChangeEmitter: EventEmitter<Tile>;
 
-  tileWorkingCopy: Tile;
+  tileSize = TILE_SIZES.MEDIUM;
 
   constructor(private tileService: TileService) {
     this.tileChangeEmitter = new EventEmitter();
-    this.tileWorkingCopy = new Tile();
   }
 
   ngOnInit(): void {
-    if (this.tile) {
-      this.tileWorkingCopy.id = this.tile.id;
-      this.tileWorkingCopy.name = this.tile.name;
-      this.tileWorkingCopy.solid = this.tile.solid;
-      this.tileWorkingCopy.sprite = this.tile.sprite;
+  }
+
+  handleFileChange(event) {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onloadend = (event) => {
+        if(typeof reader.result === 'string') {
+          this.tile.sprite = reader.result;
+        }
+      };
+      reader.readAsDataURL(event.target.files[0])
     }
   }
 
-  getName() {
-    return this.tileWorkingCopy.name || '';
-  }
-
-  getIsSolid() {
-    return this.tileWorkingCopy.solid || false;
-  }
-
-  getSprite() {
-    return this.tileWorkingCopy.sprite;
-  }
-
-  handleSpriteFileChange(event): void {
-    // FIXME
-    this.setPreview();
-  }
-
   handleNameChange(event): void {
-    this.tileWorkingCopy.solid = event.target.checked || false;
+    this.tile.name = event.target.value || "";
   }
 
   handleSolidChange(event): void {
-    this.tileWorkingCopy.solid = event.target.checked || false;
+    this.tile.solid = event.target.checked || false;
   }
 
-  setPreview(): void {
-    // FIXME
-  }
-
-  saveChanges() {
-    if (this.tile) {
-      this.tileWorkingCopy.id = this.tile.id;
-      this.tileService.putTile(this.tileWorkingCopy);
-      this.emitChange();
+  submit(form: NgForm) {
+    if (form.status === "VALID") {
+      this.tileService.putTile(this.tile).subscribe(() => this.emitChange());
     }
   }
 
   deleteTile() {
-    if (this.tile) {
-      this.tileWorkingCopy.id = this.tile.id;
-      this.tileService.deleteTile(this.tileWorkingCopy.id);
-      this.emitChange();
+    if (this.tile && this.tile.id) {
+      this.tileService.deleteTile(this.tile.id).subscribe(() => {
+        this.emitChange();
+        this.tile = undefined;
+      });
     }
   }
 
   emitChange(): void {
-    this.tileChangeEmitter.emit(this.tileWorkingCopy);
+    this.tileChangeEmitter.emit(this.tile);
   }
 }

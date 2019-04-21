@@ -20,11 +20,11 @@ export class TileService {
     return this.http.get<Tile>(`${TileService.TILES_PATH}/${tileId}`);
   }
 
-  putTile(tile: Tile): void {
-    this.http.post(`${TileService.TILES_PATH}/${tile.id}`, tile);
+  putTile(tile: Tile): Observable<Object> {
+    return this.http.post(TileService.TILES_PATH, tile);
   }
 
-  deleteTile(tileId: number): void {
-    this.http.delete(`${TileService.TILES_PATH}/${tileId}`);
+  deleteTile(tileId: number): Observable<Object> {
+    return this.http.delete(`${TileService.TILES_PATH}/${tileId}`);
   }
 }

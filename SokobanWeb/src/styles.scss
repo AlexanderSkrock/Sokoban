@@ -13,16 +13,24 @@
   margin: 0;
 }
 
+html, body app-root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
 app-root {
-  padding: 60px 0 40px;
+  .mainContainer {
+    padding: 64px 0 40px;
+  }
 }
 
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 64px;
+  line-height: 64px;
 }
 
 footer {
@@ -39,4 +47,34 @@ footer {
 
 .text-right {
   text-align: right;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-stretch {
+  justify-content: end;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.standard-padding {
+  padding: 10px;
 }

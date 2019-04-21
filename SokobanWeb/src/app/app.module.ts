@@ -15,6 +15,7 @@ import { TileSelectorComponent } from './components/tile-selector/tile-selector.
 import { TileComponent } from './components/tile/tile.component';
 import { TileDetailComponent } from './components/tile-detail/tile-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialComponentModulesModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

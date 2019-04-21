@@ -1,4 +1,4 @@
-<div>
-  <app-tile-selector [tiles]="tiles" (selectionChangedEmitter)="setCurrentTile($event)"></app-tile-selector>
+<div class="row justify-stretch standard-padding">
+  <app-tile-selector [tiles]="tiles" (selection)="setCurrentTile($event)"></app-tile-selector>
   <app-tile-detail [tile]="currentTile" (tileChangeEmitter)="loadTiles()"></app-tile-detail>
 </div>

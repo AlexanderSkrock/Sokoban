@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Tile from '../../data/Tile';
+import {TILE_SIZES} from "../tile/tile.component";
 
 @Component({
   selector: 'app-tile-selector',
@@ -11,21 +12,18 @@ export class TileSelectorComponent implements OnInit {
   tiles: Tile[];
 
   @Output()
-  selectionChangedEmitter: EventEmitter<Tile>;
+  selection: EventEmitter<Tile>;
 
-  lastSelection: Tile;
+  tileSize = TILE_SIZES.SMALL;
 
   constructor() {
-    this.selectionChangedEmitter = new EventEmitter();
+    this.selection = new EventEmitter();
   }
 
   ngOnInit() {
   }
 
   selectTile(tile: Tile) {
-    if (this.lastSelection !== tile) {
-      this.lastSelection = tile;
-      this.selectionChangedEmitter.emit(tile);
-    }
+    this.selection.emit(tile);
   }
 }

@@ -8,14 +8,17 @@ import {TileService} from '../../services/tile.service';
   styleUrls: ['./tile-editor.component.scss']
 })
 export class TileEditorComponent implements OnInit {
+  static createNewTilePlaceholder(): Tile {
+    const placeholder = new Tile();
+    placeholder.sprite = '../../../favicon.ico';
+    return placeholder;
+  }
+
   tiles: Tile[];
   currentTile: Tile;
-  newTilePlaceholder: Tile;
 
   constructor(private tileService: TileService) {
-    this.newTilePlaceholder = new Tile();
-    this.newTilePlaceholder.sprite = '../../../favicon.ico';
-    this.tiles = [ this.newTilePlaceholder ];
+    this.tiles = [ TileEditorComponent.createNewTilePlaceholder() ];
     this.loadTiles();
   }
 
@@ -23,16 +26,26 @@ export class TileEditorComponent implements OnInit {
   }
 
   setCurrentTile(tile: Tile): void {
-    this.currentTile = tile;
+    if(!tile) {
+      this.currentTile = undefined;
+    } else {
+      const duplicate = new Tile();
+      duplicate.id = tile.id;
+      duplicate.name = tile.name;
+      duplicate.solid = tile.solid;
+      duplicate.sprite = tile.sprite;
+      this.currentTile = duplicate;
+    }
   }
 
   loadTiles(): void {
     this.tileService.getTiles().subscribe(tiles => {
       if (tiles) {
-        this.tiles = [ ...tiles, this.newTilePlaceholder ];
+        this.tiles = [ ...tiles, TileEditorComponent.createNewTilePlaceholder() ];
       } else {
-        this.tiles = [ this.newTilePlaceholder ];
+        this.tiles = [ TileEditorComponent.createNewTilePlaceholder() ];
       }
+      this.setCurrentTile(undefined);
     });
   }
 }
