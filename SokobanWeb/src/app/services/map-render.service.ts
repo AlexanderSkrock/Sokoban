@@ -44,11 +44,12 @@ export class MapRenderService {
   renderTiles(): void {
     for (let i = 0; i < this.map.getHeight(); i++) {
       for (let j = 0; j < this.map.getWidth(); j++) {
-        const tile = this.map.getTileAt(new Point(i, j));
+        const tilePosition = new Point(j, i);
+        const tile = this.map.getTileAt(tilePosition);
         if (tile) {
           const image = new Image();
           image.src = tile.sprite;
-          this.renderAt(image, new Point(j, i))
+          this.renderAt(image, tilePosition)
         }
       }
     }

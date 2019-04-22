@@ -20,6 +20,8 @@ import { MapSelectorComponent } from './components/maps/map-selector/map-selecto
 import { MapComponent } from './components/maps/map/map.component';
 import { MapWorkspaceComponent } from './components/maps/map-workspace/map-workspace.component';
 import { TileChangeComponent } from './components/maps/tile-change/tile-change.component';
+import { BoxChangeComponent } from './components/maps/box-change/box-change.component';
+import { BoxTargetChangeComponent } from './components/maps/box-target-change/box-target-change.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { TileChangeComponent } from './components/maps/tile-change/tile-change.c
     MapComponent,
     MapWorkspaceComponent,
     TileChangeComponent,
+    BoxChangeComponent,
+    BoxTargetChangeComponent,
   ],
   imports: [
     BrowserModule,

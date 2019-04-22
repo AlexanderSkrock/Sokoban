@@ -20,15 +20,19 @@ export default class SokobanMap {
   }
 
   getTileAt(point: Point): Tile {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      return this.tiles[point.x][point.y];
+    if (this.isInMapArea(point)) {
+      return this.tiles[point.y][point.x];
     }
     console.error('coordinates out of map');
     return undefined;
   }
 
+  isInMapArea(point: Point) {
+    return point && point.isIn(0, 0, this.getWidth(), this.getHeight());
+  }
+
   isOpen(point: Point): boolean {
-    const isInMap = point.isIn(0, 0, this.getWidth(), this.getHeight());
+    const isInMap = this.isInMapArea(point);
     const tileIsNotSolid = this.getTileAt(point) && !this.getTileAt(point).solid;
     const hasNoBox = !this.hasBoxAt(point);
     return isInMap && tileIsNotSolid && hasNoBox;
@@ -39,6 +43,10 @@ export default class SokobanMap {
   }
 
   hasBoxAt(point: Point): boolean {
-    return this.boxes.some(point.equals);
+    return this.boxes.some(boxPoint => boxPoint.equals(point));
+  }
+
+  hasPlayerAt(point: Point): boolean {
+    return this.playerStartPosition && this.playerStartPosition.equals(point);
   }
 }

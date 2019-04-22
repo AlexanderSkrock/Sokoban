@@ -2,5 +2,6 @@
   <canvas #canvas (click)="handleCanvasClick($event)"></canvas>
   <div *ngIf="currentSelection" class="column">
     <app-tile-change [map]="map" [currentPosition]="currentSelection"></app-tile-change>
+    <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
   </div>
 </div>
