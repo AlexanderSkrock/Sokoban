@@ -1,5 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import SokobanMap from "../../../data/SokobanMap";
+import {RenderService} from "../../../services/render.service";
+import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
 
 enum SIZE {
   SMALL = "map-small",
@@ -13,15 +15,21 @@ export const MAP_SIZES = SIZE;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
   @Input()
   map: SokobanMap;
 
   @Input()
   size: SIZE;
 
-  constructor() { }
+  @ViewChild('canvas')
+  canvas: ElementRef;
 
-  ngOnInit() {
+  constructor(private mapRenderService: RenderService) { }
+
+  ngAfterViewInit() {
+    const renderContext = this.canvas.nativeElement.getContext('2d');
+    this.mapRenderService.initArea(renderContext, createRenderableFromSokobanMap(this.map));
+    this.mapRenderService.render();
   }
 }

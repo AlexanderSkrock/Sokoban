@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MapRenderService } from './map-render.service';
+import { RenderService } from './render.service';
 
-describe('MapRenderService', () => {
+describe('RenderService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: MapRenderService = TestBed.get(MapRenderService);
+    const service: RenderService = TestBed.get(RenderService);
     expect(service).toBeTruthy();
   });
 });

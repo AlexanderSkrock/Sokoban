@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {MapRenderService} from "../../../services/map-render.service";
 import Point from "../../../data/Point";
 import EditableSokobanMap from "../../../data/EditableSokobanMap";
+import {RenderService} from "../../../services/render.service";
+import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
 
 @Component({
   selector: 'app-map-workspace',
@@ -17,12 +18,16 @@ export class MapWorkspaceComponent implements AfterViewInit {
 
   currentSelection: Point;
 
-  constructor(private mapRenderService: MapRenderService) { }
+  constructor(private mapRenderService: RenderService<CanvasRenderingContext2D>) { }
 
   ngAfterViewInit() {
+    const tileSize = 64;
     const canvasElement = this.canvas.nativeElement;
-    this.mapRenderService.initArea(canvasElement, this.map);
-    this.mapRenderService.startRendering();
+    canvasElement.width = this.map.getWidth() * tileSize;
+    canvasElement.height = this.map.getHeight() * tileSize;
+    const renderContext = canvasElement.getContext('2d');
+    this.mapRenderService.initRenderService(renderContext, createRenderableFromSokobanMap(this.map));
+    this.mapRenderService.startRendering(600);
   }
 
   handleCanvasClick(event: MouseEvent): void {
