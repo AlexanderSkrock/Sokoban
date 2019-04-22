@@ -5,7 +5,7 @@ export default class PlayableSokobanMap extends SokobanMap {
   static fromSokobanMap(map: SokobanMap): PlayableSokobanMap {
     const result = new PlayableSokobanMap();
     result.id = map.id;
-    result.playerStartPosition = map.playerStartPosition;
+    result.playerPosition = map.playerPosition;
     result.tiles = map.tiles;
     result.boxes = map.boxes;
     result.collectibles = map.collectibles;

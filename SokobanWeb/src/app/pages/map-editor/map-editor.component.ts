@@ -16,7 +16,7 @@ export class MapEditorComponent implements OnInit {
     for(let i = 0; i < 10; i++) {
       map.tiles[i] = new Array(10);
     }
-    map.playerStartPosition = new Point(0, 0);
+    map.playerPosition = undefined;
     map.boxes = [];
     map.collectibles = [];
     return map;

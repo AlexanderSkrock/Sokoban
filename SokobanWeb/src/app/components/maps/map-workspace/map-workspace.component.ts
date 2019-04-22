@@ -25,12 +25,12 @@ export class MapWorkspaceComponent implements AfterViewInit {
     this.mapRenderService.startRendering();
   }
 
-  handleCanvasClick(event): void {
-    const tileX = Math.trunc(this.map.getWidth() * event.offsetX / this.canvas.nativeElement.width);
-    const tileY = Math.trunc(this.map.getHeight() * event.offsetY / this.canvas.nativeElement.height);
-    const newSelection = new Point(tileX, tileY);
-    if (!newSelection.equals(this.currentSelection)) {
-      this.currentSelection = newSelection;
-    }
+  handleCanvasClick(event: MouseEvent): void {
+    const computed = getComputedStyle(this.canvas.nativeElement);
+    const computedCanvasWidth = parseFloat(computed.getPropertyValue("width"));
+    const computedCanvasHeight = parseFloat(computed.getPropertyValue("height"));
+    const tileX = Math.trunc(this.map.getWidth() * event.offsetX / computedCanvasWidth);
+    const tileY = Math.trunc(this.map.getHeight() * event.offsetY / computedCanvasHeight);
+    this.currentSelection = new Point(tileX, tileY);
   }
 }

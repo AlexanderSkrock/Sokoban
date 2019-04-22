@@ -1,7 +1,11 @@
-<div class="row justify-between">
-  <canvas #canvas (click)="handleCanvasClick($event)"></canvas>
-  <div *ngIf="currentSelection" class="column">
+<div class="row justify-between standard-padding">
+  <div>
+    <canvas #canvas class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
+  </div>
+  <div *ngIf="currentSelection" class="column standard-padding">
     <app-tile-change [map]="map" [currentPosition]="currentSelection"></app-tile-change>
     <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
+    <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
+    <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
   </div>
 </div>

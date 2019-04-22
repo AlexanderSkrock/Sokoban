@@ -1,12 +1,19 @@
-<div class="row justify-between">
-  <span *ngIf="!currentPositionIsPlaceable()">Für die aktuelle Position stehen keine Option zu Boxen zur Verfügung</span>
-  <div *ngIf="currentPositionIsPlaceable()">
-    <label>
-      Optionen zur Box an der aktuellen Position
-      <div class="row justify-between">
-        <button *ngIf="canPlaceBoxAtCurrentPosition()" type="button" (click)="addBoxAtCurrentPosition()">Box hinzufügen</button>
-        <button *ngIf="hasBoxAtCurrentPosition()" type="button" (click)="removeBoxAtCurrentPosition()">Box entfernen</button>
-      </div>
-    </label>
-  </div>
-</div>
+<ng-container
+  *ngIf="currentPositionIsPlaceable(); then options; else message">
+</ng-container>
+
+<ng-template #options>
+  <label>
+    Optionen zur Box an der aktuellen Position
+    <div class="row justify-between">
+      <button *ngIf="canPlaceBoxAtCurrentPosition()" type="button" (click)="addBoxAtCurrentPosition()">Box hinzufügen</button>
+      <button *ngIf="hasBoxAtCurrentPosition()" type="button" (click)="removeBoxAtCurrentPosition()">Box entfernen</button>
+    </div>
+  </label>
+</ng-template>
+
+<ng-template #message>
+  <span>
+    Für die aktuelle Position stehen keine Option zu Boxen zur Verfügung
+  </span>
+</ng-template>

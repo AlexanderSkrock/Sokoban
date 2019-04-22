@@ -3,7 +3,7 @@ import Tile from './Tile';
 
 export default class SokobanMap {
   id: number;
-  playerStartPosition: Point;
+  playerPosition: Point;
   tiles: Tile[][];
   collectibles: Point[];
   boxes: Point[];
@@ -39,7 +39,7 @@ export default class SokobanMap {
   }
 
   hasCollectibleAt(point: Point): boolean {
-    return this.collectibles.some(point.equals);
+    return this.collectibles.some(colletiblePoint => colletiblePoint.equals(point));
   }
 
   hasBoxAt(point: Point): boolean {
@@ -47,6 +47,6 @@ export default class SokobanMap {
   }
 
   hasPlayerAt(point: Point): boolean {
-    return this.playerStartPosition && this.playerStartPosition.equals(point);
+    return this.playerPosition && this.playerPosition.equals(point);
   }
 }

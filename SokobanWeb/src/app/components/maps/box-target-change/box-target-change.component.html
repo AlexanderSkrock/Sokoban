@@ -1,0 +1,19 @@
+<ng-container
+  *ngIf="currentPositionIsPlaceable(); then options; else message">
+</ng-container>
+
+<ng-template #options>
+  <label>
+    Optionen zum Box-Ziel an der aktuellen Position
+    <div class="row justify-between">
+      <button *ngIf="canPlaceBoxTargetAtCurrentPosition()" type="button" (click)="addBoxTargetAtCurrentPosition()">Box-Ziel hinzufügen</button>
+      <button *ngIf="hasBoxTargetAtCurrentPosition()" type="button" (click)="removeBoxTargetAtCurrentPosition()">Box-Ziel entfernen</button>
+    </div>
+  </label>
+</ng-template>
+
+<ng-template #message>
+  <span>
+    Für die aktuelle Position stehen keine Option zu Box-Zielen zur Verfügung
+  </span>
+</ng-template>

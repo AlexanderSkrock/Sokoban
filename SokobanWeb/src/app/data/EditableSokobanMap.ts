@@ -6,7 +6,7 @@ export default class EditableSokobanMap extends SokobanMap {
   static fromSokobanMap(map: SokobanMap): EditableSokobanMap {
     const result = new EditableSokobanMap();
     result.id = map.id;
-    result.playerStartPosition = map.playerStartPosition;
+    result.playerPosition = map.playerPosition;
     result.tiles = map.tiles;
     result.boxes = map.boxes;
     result.collectibles = map.collectibles;
@@ -47,12 +47,12 @@ export default class EditableSokobanMap extends SokobanMap {
 
   placePlayer(point: Point): void {
     if (this.isInMapArea(point)) {
-      this.playerStartPosition = point;
+      this.playerPosition = point;
     }
   }
 
   removePlayer(): void {
-    this.playerStartPosition = undefined;
+    this.playerPosition = undefined;
   }
 
   canPlaceBoxAt(point: Point) {

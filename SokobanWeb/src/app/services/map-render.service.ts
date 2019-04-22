@@ -28,13 +28,18 @@ export class MapRenderService {
       this.renderBoxes();
       this.renderCollectibles();
       this.renderPlayer();
-    }, 1000);
+    }, 600);
   }
 
   renderAt(drawable, point: Point) {
-    const x = point.x * MapRenderService.TILE_SIZE;
-    const y = point.y * MapRenderService.TILE_SIZE;
-    this.renderContext.drawImage(drawable, x, y, MapRenderService.TILE_SIZE, MapRenderService.TILE_SIZE);
+    const computed = getComputedStyle(this.renderContext.canvas);
+    const computedCanvasWidth = parseFloat(computed.getPropertyValue("width"));
+    const computedCanvasHeight = parseFloat(computed.getPropertyValue("height"));
+    const sizeX = computedCanvasWidth / this.map.getWidth();
+    const sizeY = computedCanvasHeight / this.map.getHeight();
+    const x = point.x * sizeX;
+    const y = point.y * sizeY;
+    this.renderContext.drawImage(drawable, x, y, sizeX, sizeY);
   }
 
   clear(): void {
@@ -64,16 +69,18 @@ export class MapRenderService {
   }
 
   renderCollectibles(): void {
-    this.map.boxes.forEach(boxPosition => {
+    this.map.collectibles.forEach(collectiblePosition => {
       const image = new Image();
       image.src = '../favicon.ico';
-      this.renderAt(image, boxPosition);
+      this.renderAt(image, collectiblePosition);
     });
   }
 
   renderPlayer(): void {
-    const image = new Image();
-    image.src = '../favicon.ico';
-    this.renderAt(image, this.map.playerStartPosition);
+    if(this.map.playerPosition) {
+      const image = new Image();
+      image.src = '../favicon.ico';
+      this.renderAt(image, this.map.playerPosition);
+    }
   }
 }
