@@ -1,6 +1,6 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import Tile from '../../data/Tile';
-import {TileService} from '../../services/tile.service';
+import Tile from '../../../data/Tile';
+import {TileService} from '../../../services/tile.service';
 import {TILE_SIZES} from "../tile/tile.component";
 import {NgForm} from "@angular/forms";
 

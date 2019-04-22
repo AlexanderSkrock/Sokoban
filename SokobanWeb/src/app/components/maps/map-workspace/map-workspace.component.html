@@ -1,0 +1,6 @@
+<div class="row justify-between">
+  <canvas #canvas (click)="handleCanvasClick($event)"></canvas>
+  <div *ngIf="currentSelection" class="column">
+    <app-tile-change [map]="map" [currentPosition]="currentSelection"></app-tile-change>
+  </div>
+</div>

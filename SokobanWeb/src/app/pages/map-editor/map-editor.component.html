@@ -1,3 +1,4 @@
-<p>
-  map-editor works!
-</p>
+<div class="row justify-between">
+  <app-map-selector [maps]="maps" (selection)="setCurrentMap($event)"></app-map-selector>
+  <app-map-workspace *ngIf="currentMap" [map]="currentMap"></app-map-workspace>
+</div>

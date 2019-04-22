@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import Tile from '../../data/Tile';
+import Tile from '../../../data/Tile';
 
 enum SIZE {
   SMALL = 'tile-small',

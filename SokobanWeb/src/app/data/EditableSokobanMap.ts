@@ -3,15 +3,25 @@ import Point from './Point';
 import Tile from './Tile';
 
 export default class EditableSokobanMap extends SokobanMap {
+  static fromSokobanMap(map: SokobanMap): EditableSokobanMap {
+    const result = new EditableSokobanMap();
+    result.id = map.id;
+    result.playerStartPosition = map.playerStartPosition;
+    result.tiles = map.tiles;
+    result.boxes = map.boxes;
+    result.collectibles = map.collectibles;
+    return result;
+  }
+
   putTileAt(tile: Tile, point: Point): void  {
-    if (!point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.tiles[point.x][point.y] = tile;
+    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
+      this.tiles[point.y][point.x] = tile;
     }
   }
 
   removeTileAt(point: Point): void {
     if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.tiles[point.x][point.y] = undefined;
+      this.tiles[point.y][point.x] = undefined;
     }
   }
 

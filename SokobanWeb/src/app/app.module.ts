@@ -11,11 +11,15 @@ import { GameComponent } from './pages/game/game.component';
 import { TileEditorComponent } from './pages/tile-editor/tile-editor.component';
 import { MapEditorComponent } from './pages/map-editor/map-editor.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { TileSelectorComponent } from './components/tile-selector/tile-selector.component';
-import { TileComponent } from './components/tile/tile.component';
-import { TileDetailComponent } from './components/tile-detail/tile-detail.component';
+import { TileSelectorComponent } from './components/tiles/tile-selector/tile-selector.component';
+import { TileComponent } from './components/tiles/tile/tile.component';
+import { TileDetailComponent } from './components/tiles/tile-detail/tile-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
+import { MapSelectorComponent } from './components/maps/map-selector/map-selector.component';
+import { MapComponent } from './components/maps/map/map.component';
+import { MapWorkspaceComponent } from './components/maps/map-workspace/map-workspace.component';
+import { TileChangeComponent } from './components/maps/tile-change/tile-change.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import {FormsModule} from "@angular/forms";
     WelcomeComponent,
     TileSelectorComponent,
     TileComponent,
-    TileDetailComponent
+    TileDetailComponent,
+    MapSelectorComponent,
+    MapComponent,
+    MapWorkspaceComponent,
+    TileChangeComponent,
   ],
   imports: [
     BrowserModule,
