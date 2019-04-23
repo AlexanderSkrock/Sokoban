@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import SokobanMap from "../../../data/SokobanMap";
 import {RenderService} from "../../../services/render.service";
-import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
-import RenderJob from "../../../data/RenderJob";
+import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
+import RenderJob from "../../../util/RenderJob";
 
 enum SIZE {
   SMALL = "map-small",

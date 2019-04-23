@@ -12,12 +12,12 @@ import {
 import Point from "../../../data/Point";
 import EditableSokobanMap from "../../../data/EditableSokobanMap";
 import {RenderService} from "../../../services/render.service";
-import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
+import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
 import {MapService} from "../../../services/map.service";
 import SokobanMap from "../../../data/SokobanMap";
 import _ from "../../../../../node_modules/lodash"
 import Tile from "../../../data/Tile";
-import RenderJob from "../../../data/RenderJob";
+import RenderJob from "../../../util/RenderJob";
 
 @Component({
   selector: 'app-map-workspace',

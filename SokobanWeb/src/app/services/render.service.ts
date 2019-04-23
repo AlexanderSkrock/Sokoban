@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import Renderable from "../data/Renderable";
-import RenderJob from "../data/RenderJob";
+import Renderable from "../util/Renderable";
+import RenderJob from "../util/RenderJob";
 
 @Injectable({
   providedIn: 'root'

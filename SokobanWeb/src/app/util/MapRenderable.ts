@@ -1,6 +1,6 @@
 import Renderable from "./Renderable";
-import SokobanMap from "./SokobanMap";
-import Point from "./Point";
+import SokobanMap from "../data/SokobanMap";
+import Point from "../data/Point";
 
 export function createRenderableFromSokobanMap(map: SokobanMap): Renderable<CanvasRenderingContext2D> {
   return new MapRenderable(map);
@@ -49,7 +49,7 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
   renderBoxes(renderContext: CanvasRenderingContext2D): void {
     this.map.boxes.forEach(boxPosition => {
       const image = new Image();
-      image.src = '../favicon.ico';
+      image.src = '../../assets/favicon.ico';
       this.renderAt(renderContext, image, boxPosition);
     });
   }
@@ -57,7 +57,7 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
   renderCollectibles(renderContext: CanvasRenderingContext2D): void {
     this.map.collectibles.forEach(collectiblePosition => {
       const image = new Image();
-      image.src = '../favicon.ico';
+      image.src = '../../assets/favicon.ico';
       this.renderAt(renderContext, image, collectiblePosition);
     });
   }
@@ -65,7 +65,7 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
   renderPlayer(renderContext: CanvasRenderingContext2D): void {
     if(this.map.playerPosition) {
       const image = new Image();
-      image.src = '../favicon.ico';
+      image.src = '../../assets/favicon.ico';
       this.renderAt(renderContext, image, this.map.playerPosition);
     }
   }

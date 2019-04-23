@@ -1,6 +1,6 @@
 import Point from './Point';
 import Tile from './Tile';
-import {createEmpty2DArray} from "./Arrays";
+import {createEmpty2DArray} from "../util/Arrays";
 
 export default class SokobanMap {
   static createBlankSokobanMap(width: number, height: number): SokobanMap {
@@ -22,7 +22,7 @@ export default class SokobanMap {
   constructor(map: SokobanMap = undefined) {
     if(map) {
       this.id = map.id;
-      this.playerPosition = this.playerPosition ? new Point(map.playerPosition.x, map.playerPosition.y) : undefined;
+      this.playerPosition = map.playerPosition ? new Point(map.playerPosition.x, map.playerPosition.y) : undefined;
       this.tiles = map.tiles.map(row => row.map(tile => tile ? new Tile(tile) : undefined));
       this.boxes = map.boxes ? map.boxes.map(boxPoint => new Point(boxPoint.x, boxPoint.y)) : [];
       this.collectibles = map.collectibles ? map.collectibles.map(collectiblePoint => new Point(collectiblePoint.x, collectiblePoint.y)) : [];

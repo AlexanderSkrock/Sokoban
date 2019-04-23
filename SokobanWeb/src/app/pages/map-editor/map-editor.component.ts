@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import SokobanMap from "../../data/SokobanMap";
 import {MapService} from "../../services/map.service";
 import Tile from "../../data/Tile";
-import {create2DArrayWithDefaultValues} from "../../data/Arrays";
+import {create2DArrayWithDefaultValues} from "../../util/Arrays";
 import {TileService} from "../../services/tile.service";
 
 @Component({
