@@ -37,7 +37,7 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
       for (let j = 0; j < this.map.getWidth(); j++) {
         const tilePosition = new Point(j, i);
         const tile = this.map.getTileAt(tilePosition);
-        if (tile) {
+        if (tile && tile.sprite) {
           const image = new Image();
           image.src = tile.sprite;
           this.renderAt(renderContext, image, tilePosition)

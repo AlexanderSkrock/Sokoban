@@ -16,8 +16,11 @@ export const MAP_SIZES = SIZE;
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
-  @Input()
-  map: SokobanMap;
+  @Input('map') set setMap(map: SokobanMap) {
+    this.map = map;
+    this.mapRenderService.setRenderable(createRenderableFromSokobanMap(this.map));
+    // this.mapRenderService.render();
+  }
 
   @Input()
   size: SIZE;
@@ -25,11 +28,13 @@ export class MapComponent implements AfterViewInit {
   @ViewChild('canvas')
   canvas: ElementRef;
 
-  constructor(private mapRenderService: RenderService) { }
+  map: SokobanMap;
+
+  constructor(private mapRenderService: RenderService<CanvasRenderingContext2D>) { }
 
   ngAfterViewInit() {
     const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.mapRenderService.initArea(renderContext, createRenderableFromSokobanMap(this.map));
-    this.mapRenderService.render();
+    this.mapRenderService.initRenderService(renderContext, createRenderableFromSokobanMap(this.map));
+    this.mapRenderService.startRendering();
   }
 }

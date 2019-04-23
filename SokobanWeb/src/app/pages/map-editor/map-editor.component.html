@@ -1,4 +1,4 @@
 <div class="row justify-between">
   <app-map-selector [maps]="maps" (selection)="setCurrentMap($event)"></app-map-selector>
-  <app-map-workspace *ngIf="currentMap" [map]="currentMap"></app-map-workspace>
+  <app-map-workspace *ngIf="currentMap" [map]="currentMap" [tiles]="tiles" (onSave)="saveMap($event)" (onDelete)="deleteMap($event)"></app-map-workspace>
 </div>

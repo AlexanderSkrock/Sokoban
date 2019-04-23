@@ -11,7 +11,15 @@ export class RenderService<T extends RenderingContext> {
   constructor() { }
 
   initRenderService(renderContext: T, renderable: Renderable<T>) {
+    this.setRenderContext(renderContext);
+    this.setRenderable(renderable);
+  }
+
+  setRenderContext(renderContext: T) {
     this.renderContext = renderContext;
+  }
+
+  setRenderable(renderable: Renderable<T>) {
     this.renderable = renderable;
   }
 
@@ -20,6 +28,9 @@ export class RenderService<T extends RenderingContext> {
   }
 
   render() {
+    if(!this.renderContext) {
+      return;
+    }
     this.renderable.render(this.renderContext);
   }
 }

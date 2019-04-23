@@ -3,16 +3,6 @@ import Point from './Point';
 import Tile from './Tile';
 
 export default class EditableSokobanMap extends SokobanMap {
-  static fromSokobanMap(map: SokobanMap): EditableSokobanMap {
-    const result = new EditableSokobanMap();
-    result.id = map.id;
-    result.playerPosition = map.playerPosition;
-    result.tiles = map.tiles;
-    result.boxes = map.boxes;
-    result.collectibles = map.collectibles;
-    return result;
-  }
-
   putTileAt(tile: Tile, point: Point): void  {
     if (this.isInMapArea(point)) {
       this.tiles[point.y][point.x] = tile;

@@ -19,10 +19,10 @@ export class TileEditorComponent implements OnInit {
 
   constructor(private tileService: TileService) {
     this.tiles = [ TileEditorComponent.createNewTilePlaceholder() ];
-    this.loadTiles();
   }
 
   ngOnInit() {
+    this.loadTiles();
   }
 
   setCurrentTile(tile: Tile): void {
@@ -47,5 +47,17 @@ export class TileEditorComponent implements OnInit {
       }
       this.setCurrentTile(undefined);
     });
+  }
+
+  saveTile(tile: Tile): void {
+    if (tile) {
+      this.tileService.putTile(tile).subscribe(() => this.loadTiles());
+    }
+  }
+
+  deleteTile(tile: Tile): void {
+    if (tile && tile.id) {
+      this.tileService.deleteTile(tile.id).subscribe(() => this.loadTiles());
+    }
   }
 }

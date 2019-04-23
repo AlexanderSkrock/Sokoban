@@ -15,6 +15,12 @@ export default class TileRepository {
     });
   }
 
+  static getTilesSync() {
+    const tiles = JSON.parse(fs.readFileSync(TileRepository.TILES_PATH)) || [];
+    console.log(`loaded ${tiles.length} tiles`);
+    return tiles;
+  }
+
   static getTile(id, callback) {
     TileRepository.getTiles(tiles => {
       const result = tiles.find(tile => tile.id === id);
@@ -22,8 +28,14 @@ export default class TileRepository {
     });
   }
 
+  static getTileSync(id) {
+    const tiles = TileRepository.getTilesSync();
+    const result = tiles.find(tile => tile.id === id);
+    return result;
+  }
+
   static putTile(tile, callback)  {
-    TileRepository.deleteTile(tile, () => {
+    TileRepository.deleteTile(tile.id, () => {
       TileRepository.getTiles(tiles => {
         const alteredTiles = [ ...tiles, tile ];
         console.log(`put tile ${tile.name} with id ${tile.id}`);

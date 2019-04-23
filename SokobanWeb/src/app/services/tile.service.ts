@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import Tile from '../data/Tile';
 import {API_PATH} from '../../config';
 import {Observable} from 'rxjs';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class TileService {
   constructor(private http: HttpClient) { }
 
   getTiles(): Observable<Tile[]> {
-    return this.http.get<Tile[]>(TileService.TILES_PATH);
+    return this.http.get<Tile[]>(TileService.TILES_PATH).pipe(map(items => items.map(item => new Tile(item))));
   }
 
   getTile(tileId: number): Observable<Tile> {
-    return this.http.get<Tile>(`${TileService.TILES_PATH}/${tileId}`);
+    return this.http.get<Tile>(`${TileService.TILES_PATH}/${tileId}`).pipe(map(item => new Tile(item)));
   }
 
   putTile(tile: Tile): Observable<Object> {

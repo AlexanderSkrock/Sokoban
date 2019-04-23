@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import EditableSokobanMap from "../../../data/EditableSokobanMap";
 import Point from "../../../data/Point";
 import Tile from "../../../data/Tile";
-import {TileService} from "../../../services/tile.service";
 
 @Component({
   selector: 'app-tile-change',
@@ -16,11 +15,10 @@ export class TileChangeComponent implements OnInit {
   @Input()
   currentPosition: Point;
 
+  @Input()
   tiles: Tile[];
 
-  constructor(private tileService: TileService) {
-    tileService.getTiles().subscribe(tiles => this.tiles = tiles);
-  }
+  constructor() { }
 
   ngOnInit() {
   }

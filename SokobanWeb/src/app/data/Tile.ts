@@ -4,10 +4,13 @@ export default class Tile {
   solid: boolean;
   sprite: string;
 
-  constructor() {
-    this.id = undefined;
-    this.name = "";
-    this.solid = undefined;
-    this.sprite = undefined;
+  constructor(tile: Tile = undefined) {
+    if (tile) {
+      this.id = tile.id;
+      this.name = tile.name;
+      this.solid = tile.solid;
+      this.sprite = tile.sprite;
+    }
+    this.name = this.name || "";
   }
 }
