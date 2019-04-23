@@ -21,11 +21,8 @@ export default class MapRepository {
   }
 
   static putMap(map, callback)  {
-    MapRepository.deleteMap(map, () => {
+    MapRepository.deleteMap(map.id, () => {
       MapRepository.getMaps(maps => {
-        if(!map.id) {
-          map.id = MapRepository.generateId();
-        }
         const alteredMaps = [ ...maps, map ];
         MapRepository.saveMaps(alteredMaps, callback);
       })
@@ -34,16 +31,12 @@ export default class MapRepository {
 
   static deleteMap(mapId, callback) {
     MapRepository.getMaps(maps => {
-      const filteredMaps = maps.filter(map => map.id === mapId);
+      const filteredMaps = maps.filter(map => map.id !== mapId);
       MapRepository.saveMaps(filteredMaps, callback);
     });
   }
 
   static saveMaps(maps, callback) {
     fs.writeFile(MapRepository.MAP_PATH, JSON.stringify(maps), callback)
-  }
-
-  static generateId() {
-    return 0;
   }
 }

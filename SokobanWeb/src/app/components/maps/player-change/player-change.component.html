@@ -1,0 +1,19 @@
+<ng-container
+  *ngIf="currentPositionIsPlaceable(); then options; else message">
+</ng-container>
+
+<ng-template #options>
+  <label>
+    Optionen zum Spieler an der aktuellen Position
+    <div class="row justify-between">
+      <button *ngIf="canPlacePlayerAtCurrentPosition()" type="button" (click)="putPlayerAtCurrentPosition()">Spieler platzieren</button>
+      <button *ngIf="hasPlayerAtCurrentPosition()" type="button" (click)="removePlayer()">Spieler entfernen</button>
+    </div>
+  </label>
+</ng-template>
+
+<ng-template #message>
+  <span>
+    Für die aktuelle Position stehen keine Optionen zum Spieler zur Verfügung
+  </span>
+</ng-template>

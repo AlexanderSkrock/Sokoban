@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {API_PATH} from '../../config';
 import SokobanMap from '../data/SokobanMap';
+import {map} from "rxjs/operators";
+import _ from "../../../node_modules/lodash";
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +15,18 @@ export class MapService {
   constructor(private http: HttpClient) { }
 
   getMaps(): Observable<SokobanMap[]> {
-    return this.http.get<SokobanMap[]>(MapService.MAPS_PATH);
+    return this.http.get<SokobanMap[]>(MapService.MAPS_PATH).pipe(map(items => items.map(item => new SokobanMap(item))));
   }
 
   getMap(mapId: number): Observable<SokobanMap> {
-    return this.http.get<SokobanMap>(`${MapService.MAPS_PATH}/${mapId}`);
+    return this.http.get<SokobanMap>(`${MapService.MAPS_PATH}/${mapId}`).pipe(map(item => new SokobanMap(item)));
   }
 
-  putMap(map: SokobanMap) {
-    this.http.post(MapService.MAPS_PATH, map);
+  putMap(map: SokobanMap): Observable<Object> {
+    return this.http.post(MapService.MAPS_PATH, map);
   }
 
-  deleteMap(mapId: number) {
-    this.http.delete(`${MapService.MAPS_PATH}/${mapId}`);
+  deleteMap(mapId: number): Observable<Object> {
+    return this.http.delete(`${MapService.MAPS_PATH}/${mapId}`);
   }
 }

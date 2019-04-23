@@ -1,6 +1,6 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import Tile from '../../data/Tile';
-import {TileService} from '../../services/tile.service';
+import Tile from '../../../data/Tile';
+import {TileService} from '../../../services/tile.service';
 import {TILE_SIZES} from "../tile/tile.component";
 import {NgForm} from "@angular/forms";
 
@@ -14,12 +14,16 @@ export class TileDetailComponent implements OnInit {
   tile: Tile;
 
   @Output()
-  tileChangeEmitter: EventEmitter<Tile>;
+  onSave: EventEmitter<Tile>;
+
+  @Output()
+  onDelete: EventEmitter<Tile>;
 
   tileSize = TILE_SIZES.MEDIUM;
 
   constructor(private tileService: TileService) {
-    this.tileChangeEmitter = new EventEmitter();
+    this.onSave = new EventEmitter();
+    this.onDelete = new EventEmitter();
   }
 
   ngOnInit(): void {
@@ -47,20 +51,11 @@ export class TileDetailComponent implements OnInit {
 
   submit(form: NgForm) {
     if (form.status === "VALID") {
-      this.tileService.putTile(this.tile).subscribe(() => this.emitChange());
+      this.onSave.emit(this.tile);
     }
   }
 
-  deleteTile() {
-    if (this.tile && this.tile.id) {
-      this.tileService.deleteTile(this.tile.id).subscribe(() => {
-        this.emitChange();
-        this.tile = undefined;
-      });
-    }
-  }
-
-  emitChange(): void {
-    this.tileChangeEmitter.emit(this.tile);
+  deleteTile(): void {
+    this.onDelete.emit(this.tile);
   }
 }

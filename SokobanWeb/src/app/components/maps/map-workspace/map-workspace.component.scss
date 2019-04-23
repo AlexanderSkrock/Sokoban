@@ -1,0 +1,20 @@
+canvas.grid {
+  z-index: 2;
+}
+
+$gridSize: 64px;
+$gridColor: #FF0000;
+$gridOpacity: 1;
+$gridWidth: 1px;
+$gridSize_: ($gridSize - $gridWidth);
+.grid {
+  background-image: repeating-linear-gradient(0deg, $gridColor, transparent $gridWidth, transparent $gridSize_, $gridColor $gridSize),
+                    repeating-linear-gradient(-90deg, $gridColor, transparent $gridWidth, transparent $gridSize_, $gridColor $gridSize);
+  background-size: $gridSize $gridSize;
+  opacity: $gridOpacity;
+  z-index: 1;
+}
+
+canvas {
+  flex-shrink: 0;
+}

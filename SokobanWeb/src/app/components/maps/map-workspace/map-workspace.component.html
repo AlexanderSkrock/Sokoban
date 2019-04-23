@@ -1,0 +1,15 @@
+<div class="row justify-between standard-padding">
+  <div>
+    <canvas #canvas class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
+  </div>
+  <div *ngIf="currentSelection" class="column standard-padding">
+    <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>
+    <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
+    <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
+    <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
+    <div class="row standard-padding">
+      <button type="button" (click)="emitSave()">Speichern</button>
+      <button type="button" (click)="emitDelete()">Löschen</button>
+    </div>
+  </div>
+</div>

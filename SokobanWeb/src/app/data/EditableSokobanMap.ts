@@ -4,56 +4,61 @@ import Tile from './Tile';
 
 export default class EditableSokobanMap extends SokobanMap {
   putTileAt(tile: Tile, point: Point): void  {
-    if (!point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.tiles[point.x][point.y] = tile;
+    if (this.isInMapArea(point)) {
+      this.tiles[point.y][point.x] = tile;
     }
   }
 
   removeTileAt(point: Point): void {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.tiles[point.x][point.y] = undefined;
+    if (this.isInMapArea(point)) {
+      this.tiles[point.y][point.x] = undefined;
     }
   }
 
   putBoxAt(point: Point): void  {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      const existsAlready = this.boxes.some(point.equals);
-      if (!existsAlready) {
-        this.boxes.push(point);
-      }
+    if (this.canPlaceBoxAt(point)) {
+      this.boxes.push(point);
     }
   }
 
   removeBoxAt(point: Point): void {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.boxes.filter(boxPoint => !boxPoint.equals(point));
-    }
+    this.boxes = this.boxes.filter(boxPoint => !boxPoint.equals(point));
   }
 
   putCollectibleAt(point: Point): void  {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      const existsAlready = this.collectibles.some(point.equals);
-      if (!existsAlready) {
-        this.collectibles.push(point);
-      }
+    if (this.canPlaceCollectibleAt(point)) {
+      this.collectibles.push(point);
     }
   }
 
   removeCollectibleAt(point: Point): void {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.collectibles.filter(jewelPoint => !jewelPoint.equals(point));
-    }
+    this.collectibles = this.collectibles.filter(jewelPoint => !jewelPoint.equals(point));
   }
 
   placePlayer(point: Point): void {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.playerStartPosition = point;
+    if (this.isInMapArea(point)) {
+      this.playerPosition = point;
     }
   }
 
-  removePlayer(point: Point): void {
-    if (point.isIn(0, 0, this.getWidth(), this.getHeight())) {
-      this.playerStartPosition = undefined;
-    }
+  removePlayer(): void {
+    this.playerPosition = undefined;
+  }
+
+  canPlaceBoxAt(point: Point) {
+    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasCollectibleAt(point) && !this.hasPlayerAt(point);
+  }
+
+  canPlaceCollectibleAt(point: Point) {
+    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasCollectibleAt(point);
+  }
+
+  canPlacePlayerAt(point: Point) {
+    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasPlayerAt(point);
+  }
+
+  isPlaceablePoint(point: Point) {
+    const tileAtPoint = this.getTileAt(point);
+    return tileAtPoint && !tileAtPoint.solid;
   }
 }

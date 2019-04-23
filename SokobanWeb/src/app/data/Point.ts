@@ -17,6 +17,9 @@ export default class Point {
   }
 
   equals(otherPoint: Point): boolean {
+    if(!otherPoint) {
+      return false;
+    }
     return this.x === otherPoint.x && this.y === otherPoint.y;
   }
 }

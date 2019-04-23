@@ -1,0 +1,18 @@
+<ng-container
+  *ngIf="currentPositionIsInMap(); then options; else message">
+</ng-container>
+
+<ng-template #options>
+  <label>
+    Optionen zum Tile an der aktuellen Position
+    <div class="row justify-between">
+      <app-tile-selector [tiles]="tiles" (selection)="handleSelectionChange($event)"></app-tile-selector>
+    </div>
+  </label>
+</ng-template>
+
+<ng-template #message>
+  <span>
+    Die aktuelle Position befindet sich außerhalb der Map
+  </span>
+</ng-template>

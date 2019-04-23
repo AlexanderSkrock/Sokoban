@@ -1,1 +1,1 @@
-[{"name":"green","sprite":"1.png","id":1},{"name":"htw","solid":true,"sprite":"2.png","id":2}]
+[{"name":"green","sprite":"1.png","id":1},{"name":"htw","solid":true,"sprite":"2.png","id":2},{"name":"kanban","solid":false,"sprite":"4.png","id":4},{"id":3,"name":"haupt","solid":true,"sprite":"3.png"}]
