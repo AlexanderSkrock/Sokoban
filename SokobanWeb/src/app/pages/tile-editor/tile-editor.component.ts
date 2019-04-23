@@ -10,7 +10,7 @@ import {TileService} from '../../services/tile.service';
 export class TileEditorComponent implements OnInit {
   static createNewTilePlaceholder(): Tile {
     const placeholder = new Tile();
-    placeholder.sprite = '../../../favicon.ico';
+    placeholder.sprite = '../../../assets/favicon.ico';
     return placeholder;
   }
 

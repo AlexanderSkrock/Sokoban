@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import Point from "../../../data/Point";
 import EditableSokobanMap from "../../../data/EditableSokobanMap";
 import {RenderService} from "../../../services/render.service";
@@ -7,13 +17,14 @@ import {MapService} from "../../../services/map.service";
 import SokobanMap from "../../../data/SokobanMap";
 import _ from "../../../../../node_modules/lodash"
 import Tile from "../../../data/Tile";
+import RenderJob from "../../../data/RenderJob";
 
 @Component({
   selector: 'app-map-workspace',
   templateUrl: './map-workspace.component.html',
   styleUrls: ['./map-workspace.component.scss']
 })
-export class MapWorkspaceComponent implements AfterViewInit {
+export class MapWorkspaceComponent implements AfterViewInit, OnDestroy {
   @Input('map') set setMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.map = new EditableSokobanMap(mapClone);
@@ -36,6 +47,8 @@ export class MapWorkspaceComponent implements AfterViewInit {
 
   currentSelection: Point;
 
+  renderJob: RenderJob<CanvasRenderingContext2D>;
+
   constructor(private mapService: MapService, private mapRenderService: RenderService<CanvasRenderingContext2D>) {
     this.onSave = new EventEmitter();
     this.onDelete = new EventEmitter();
@@ -43,12 +56,18 @@ export class MapWorkspaceComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.mapRenderService.initRenderService(renderContext, createRenderableFromSokobanMap(this.map));
-    this.mapRenderService.startRendering(500);
+    this.renderJob = this.mapRenderService.createRenderJob(renderContext, createRenderableFromSokobanMap(this.map));
+    this.renderJob.startRendering(500);
+  }
+
+  ngOnDestroy(): void {
+    this.mapRenderService.deleteRenderJob(this.renderJob);
   }
 
   setUpRendering() {
-    this.mapRenderService.setRenderable(createRenderableFromSokobanMap(this.map));
+    if(this.renderJob) {
+      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.map));
+    }
     if(this.canvas) {
       const tileSize = 64;
       const canvasElement = this.canvas.nativeElement;
