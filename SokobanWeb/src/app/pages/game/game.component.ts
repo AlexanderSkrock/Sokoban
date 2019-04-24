@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   maps: SokobanMap[];
   currentMap: PlayableSokobanMap;
   mapRenderable: Renderable<CanvasRenderingContext2D>;
-  renderTimeout = 500;
+  renderTimeout = 250;
 
   constructor(private mapService: MapService) {
     this.maps = [];
@@ -62,14 +62,15 @@ export class GameComponent implements OnInit, AfterViewInit {
   handleKeyEvent(event: KeyboardEvent) {
     let direction;
     switch (event.key) {
-      case (KEY.UP): { direction = NORTH; break; }
-      case (KEY.DOWN): { direction = SOUTH; break; }
-      case (KEY.LEFT): { direction = WEST; break; }
-      case (KEY.RIGHT): { direction = EAST; break; }
+      case (KEY.UP): { direction = NORTH; break }
+      case (KEY.DOWN): { direction = SOUTH; break }
+      case (KEY.LEFT): { direction = WEST; break }
+      case (KEY.RIGHT): { direction = EAST; break }
     }
     if(direction) {
       this.currentMap.translatePlayer(direction);
       if(this.currentMap.checkWinningCondition()) {
+        alert("Gewonnen");
         // TODO
       }
     }
