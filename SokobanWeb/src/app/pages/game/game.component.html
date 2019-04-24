@@ -1,6 +1,6 @@
 <div class="row justify-between">
   <app-map-selector [maps]="maps" (selection)="setCurrentMap($event)"></app-map-selector>
   <div>
-    <canvas #canvas></canvas>
+    <canvas #canvas [appRender]="mapRenderable" [renderTimeout]="renderTimeout"></canvas>
   </div>
 </div>

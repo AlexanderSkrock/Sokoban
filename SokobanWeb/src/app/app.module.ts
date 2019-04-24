@@ -23,6 +23,7 @@ import { TileChangeComponent } from './components/maps/tile-change/tile-change.c
 import { BoxChangeComponent } from './components/maps/box-change/box-change.component';
 import { BoxTargetChangeComponent } from './components/maps/box-target-change/box-target-change.component';
 import { PlayerChangeComponent } from './components/maps/player-change/player-change.component';
+import { RenderDirective } from './directives/render.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PlayerChangeComponent } from './components/maps/player-change/player-ch
     BoxChangeComponent,
     BoxTargetChangeComponent,
     PlayerChangeComponent,
+    RenderDirective,
   ],
   imports: [
     BrowserModule,

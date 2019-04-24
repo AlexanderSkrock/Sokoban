@@ -3,6 +3,8 @@ import SokobanMap from "../../../data/SokobanMap";
 import {RenderService} from "../../../services/render.service";
 import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
 import RenderJob from "../../../util/RenderJob";
+import Renderable from "../../../util/Renderable";
+import {RenderDirective} from "../../../directives/render.directive";
 
 enum SIZE {
   SMALL = "map-small",
@@ -16,33 +18,18 @@ export const MAP_SIZES = SIZE;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnDestroy {
+export class MapComponent {
   @Input('map') set setMap(map: SokobanMap) {
     this.map = map;
-    if(this.renderJob) {
-      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.map));
-    }
+    this.mapRenderable = createRenderableFromSokobanMap(map);
   }
 
   @Input()
   size: SIZE;
 
-  @ViewChild('canvas')
-  canvas: ElementRef;
-
   map: SokobanMap;
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout = RenderDirective.RENDER_ONCE;
 
-  renderJob: RenderJob<CanvasRenderingContext2D>;
-
-  constructor(private mapRenderService: RenderService<CanvasRenderingContext2D>) { }
-
-  ngAfterViewInit() {
-    const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.renderJob = this.mapRenderService.createRenderJob(renderContext, createRenderableFromSokobanMap(this.map));
-    this.renderJob.startRendering();
-  }
-
-  ngOnDestroy(): void {
-    this.mapRenderService.deleteRenderJob(this.renderJob);
-  }
+  constructor() { }
 }

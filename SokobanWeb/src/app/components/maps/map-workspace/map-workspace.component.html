@@ -1,6 +1,6 @@
 <div class="row justify-between standard-padding">
   <div>
-    <canvas #canvas class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
+    <canvas #canvas [appRender]="mapRenderable" [renderTimeout]="renderTimeout" class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
   </div>
   <div *ngIf="currentSelection" class="column standard-padding">
     <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>

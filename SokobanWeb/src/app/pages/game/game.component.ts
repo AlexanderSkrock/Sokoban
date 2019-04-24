@@ -7,6 +7,7 @@ import RenderJob from "../../util/RenderJob";
 import {createRenderableFromSokobanMap} from "../../util/MapRenderable";
 import {EAST, NORTH, SOUTH, WEST} from "../../data/Direction";
 import _ from "../../../../node_modules/lodash";
+import Renderable from "../../util/Renderable";
 
 enum KEY {
   LEFT = 'ArrowLeft',
@@ -20,15 +21,16 @@ enum KEY {
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GameComponent implements OnInit, AfterViewInit {
   @ViewChild('canvas')
   canvas: ElementRef;
 
   maps: SokobanMap[];
   currentMap: PlayableSokobanMap;
-  renderJob: RenderJob<CanvasRenderingContext2D>;
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout = 500;
 
-  constructor(private mapService: MapService, private renderService: RenderService<CanvasRenderingContext2D>) {
+  constructor(private mapService: MapService) {
     this.maps = [];
   }
 
@@ -37,23 +39,18 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    const context = this.canvas.nativeElement.getContext('2d');
-    const renderable = this.currentMap ? createRenderableFromSokobanMap(this.currentMap) : undefined;
-    this.renderJob = this.renderService.createRenderJob(context, renderable);
-    this.renderJob.startRendering(500);
-  }
-
-  ngOnDestroy() {
-    this.renderService.deleteRenderJob(this.renderJob);
+    this.setCanvasSize();
   }
 
   setCurrentMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.currentMap = new PlayableSokobanMap(mapClone);
-    if (this.renderJob) {
-      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.currentMap));
-    }
-    if(this.canvas) {
+    this.mapRenderable = createRenderableFromSokobanMap(this.currentMap);
+    this.setCanvasSize();
+  }
+
+  setCanvasSize() {
+    if(this.canvas && this.currentMap) {
       const tileSize = 64;
       const canvasElement = this.canvas.nativeElement;
       canvasElement.width = this.currentMap.getWidth() * tileSize;

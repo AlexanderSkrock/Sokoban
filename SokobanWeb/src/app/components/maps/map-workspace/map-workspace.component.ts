@@ -18,17 +18,19 @@ import SokobanMap from "../../../data/SokobanMap";
 import _ from "../../../../../node_modules/lodash"
 import Tile from "../../../data/Tile";
 import RenderJob from "../../../util/RenderJob";
+import Renderable from "../../../util/Renderable";
 
 @Component({
   selector: 'app-map-workspace',
   templateUrl: './map-workspace.component.html',
   styleUrls: ['./map-workspace.component.scss']
 })
-export class MapWorkspaceComponent implements AfterViewInit, OnDestroy {
+export class MapWorkspaceComponent implements AfterViewInit {
   @Input('map') set setMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.map = new EditableSokobanMap(mapClone);
-    this.setUpRendering();
+    this.setCanvasSize();
+    this.mapRenderable = createRenderableFromSokobanMap(this.map);
   }
 
   @Input()
@@ -44,31 +46,21 @@ export class MapWorkspaceComponent implements AfterViewInit, OnDestroy {
   canvas: ElementRef;
 
   map: EditableSokobanMap;
-
   currentSelection: Point;
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout: 500;
 
-  renderJob: RenderJob<CanvasRenderingContext2D>;
-
-  constructor(private mapService: MapService, private mapRenderService: RenderService<CanvasRenderingContext2D>) {
+  constructor(private mapService: MapService) {
     this.onSave = new EventEmitter();
     this.onDelete = new EventEmitter();
   }
 
-  ngAfterViewInit() {
-    const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.renderJob = this.mapRenderService.createRenderJob(renderContext, createRenderableFromSokobanMap(this.map));
-    this.renderJob.startRendering(500);
+  ngAfterViewInit(): void {
+    this.setCanvasSize();
   }
 
-  ngOnDestroy(): void {
-    this.mapRenderService.deleteRenderJob(this.renderJob);
-  }
-
-  setUpRendering() {
-    if(this.renderJob) {
-      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.map));
-    }
-    if(this.canvas) {
+  setCanvasSize() {
+    if(this.canvas && this.map) {
       const tileSize = 64;
       const canvasElement = this.canvas.nativeElement;
       canvasElement.width = this.map.getWidth() * tileSize;
