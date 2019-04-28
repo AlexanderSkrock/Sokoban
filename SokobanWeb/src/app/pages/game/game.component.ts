@@ -51,6 +51,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.playerImage = this.gameElementService.getPlayerImage();
     this.boxImage= this.gameElementService.getBoxImage();
     this.boxTargetImage = this.gameElementService.getBoxTargetImage();
+    this.buildRenderable();
   }
 
   ngAfterViewInit() {
@@ -60,9 +61,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   setCurrentMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.currentMap = new PlayableSokobanMap(mapClone);
-    this.mapRenderable = createRenderableFromSokobanMap(this.currentMap, this.playerImage, this.boxImage, this.boxTargetImage);
+    this.buildRenderable();
     this.setCanvasSize();
     this.hideMapSelector = true;
+  }
+
+  buildRenderable(): void {
+    this.mapRenderable = createRenderableFromSokobanMap(this.currentMap, this.playerImage, this.boxImage, this.boxTargetImage);
   }
 
   setCanvasSize() {

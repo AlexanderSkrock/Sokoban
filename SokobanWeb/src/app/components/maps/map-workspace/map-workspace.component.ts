@@ -30,8 +30,8 @@ export class MapWorkspaceComponent implements OnInit, AfterViewInit {
   @Input('map') set setMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.map = new EditableSokobanMap(mapClone);
+    this.buildRenderable();
     this.setCanvasSize();
-    this.mapRenderable = createRenderableFromSokobanMap(map, this.playerImage, this.boxImage, this.boxTargetImage);
   }
 
   @Input()
@@ -64,10 +64,15 @@ export class MapWorkspaceComponent implements OnInit, AfterViewInit {
     this.playerImage = this.gameElementService.getPlayerImage();
     this.boxImage= this.gameElementService.getBoxImage();
     this.boxTargetImage = this.gameElementService.getBoxTargetImage();
+    this.buildRenderable();
   }
 
   ngAfterViewInit(): void {
     this.setCanvasSize();
+  }
+
+  buildRenderable(): void {
+    this.mapRenderable = createRenderableFromSokobanMap(this.map, this.playerImage, this.boxImage, this.boxTargetImage);
   }
 
   setCanvasSize() {

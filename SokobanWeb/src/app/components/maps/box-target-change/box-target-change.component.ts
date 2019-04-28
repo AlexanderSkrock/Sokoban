@@ -7,7 +7,7 @@ import Point from "../../../data/Point";
   templateUrl: './box-target-change.component.html',
   styleUrls: ['./box-target-change.component.scss']
 })
-export class BoxTargetChangeComponent implements OnInit {
+export class BoxTargetChangeComponent {
   @Input()
   map: EditableSokobanMap;
 
@@ -15,14 +15,6 @@ export class BoxTargetChangeComponent implements OnInit {
   currentPosition: Point;
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
-
-  currentPositionIsPlaceable(): boolean {
-    return this.map.isPlaceablePoint(this.currentPosition);
-  }
 
   canPlaceBoxTargetAtCurrentPosition(): boolean {
     return this.map.canPlaceBoxTargetAt(this.currentPosition);

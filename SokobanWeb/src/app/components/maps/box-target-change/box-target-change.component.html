@@ -3,14 +3,14 @@
     Optionen zu Box-Zielen
   </div>
   <ng-container
-    *ngIf="currentPositionIsPlaceable(); then options; else message">
+    *ngIf="canPlaceBoxTargetAtCurrentPosition() || hasBoxTargetAtCurrentPosition(); then options; else message">
   </ng-container>
 </div>
 
 <ng-template #options>
   <div class="row justify-between">
-    <button *ngIf="canPlaceBoxTargetAtCurrentPosition()" type="button" (click)="addBoxTargetAtCurrentPosition()">Box-Ziel hinzufügen</button>
-    <button *ngIf="hasBoxTargetAtCurrentPosition()" type="button" (click)="removeBoxTargetAtCurrentPosition()">Box-Ziel entfernen</button>
+    <button *ngIf="canPlaceBoxTargetAtCurrentPosition()" type="button" (click)="addBoxTargetAtCurrentPosition()" class="standard-margin btn btn-secondary">Box-Ziel hinzufügen</button>
+    <button *ngIf="hasBoxTargetAtCurrentPosition()" type="button" (click)="removeBoxTargetAtCurrentPosition()" class="standard-margin btn btn-secondary">Box-Ziel entfernen</button>
   </div>
 </ng-template>
 
