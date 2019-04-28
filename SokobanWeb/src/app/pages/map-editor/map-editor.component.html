@@ -1,7 +1,10 @@
 <div class="col justify-content-between standard-padding">
-  <button type="button" (click)="handleMapSelectorToggle()" class="btn btn-light btn-outline-primary">
-    Mapauswahl {{ hideMapSelector ? "einblenden" : "ausblenden" }}
-  </button>
+  <div class="row justify-content-between">
+    <button type="button" (click)="handleMapSelectorToggle()" class="btn btn-light btn-outline-primary">
+      Mapauswahl {{ hideMapSelector ? "einblenden" : "ausblenden" }}
+    </button>
+    <app-simple-help-text [title]="helpTitle" [text]="helpText"></app-simple-help-text>
+  </div>
   <app-map-selector
     *ngIf="!hideMapSelector"
     [maps]="maps"

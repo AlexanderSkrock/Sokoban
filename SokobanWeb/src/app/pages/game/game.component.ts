@@ -39,6 +39,9 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   hideMapSelector = false;
 
+  helpTitle: string = "Hilfe zur Spielen-Übersicht";
+  helpText: string = "Über die obere Übersicht kann eine der bereits erstellten Maps ausgewählt werden. Das Spiel wird durch einfaches Anklicken der jeweiligen Map gestartet. Während des Spiels kann die Spielfigur mittels der Pfeiltasten bewegt werden.";
+
   constructor(private mapService: MapService, private gameElementService: GameElementService, private modalService: NgbModal) {
     this.maps = [];
   }

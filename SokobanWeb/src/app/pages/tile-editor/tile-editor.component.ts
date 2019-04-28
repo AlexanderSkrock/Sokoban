@@ -12,12 +12,15 @@ export class TileEditorComponent implements OnInit {
   static NEW_TILE_PLACEHOLDER = TileEditorComponent.createNewTilePlaceholder();
   static createNewTilePlaceholder(): Tile {
     const placeholder = new Tile();
-    placeholder.sprite = '../../../assets/favicon.ico';
+    placeholder.sprite = '../../../assets/add-icon.svg';
     return placeholder;
   }
 
   tiles: Tile[];
   currentTile: Tile;
+
+  helpTitle: string = "Hilfe zum Tile-Editor";
+  helpText: string = "Hier können über das '+' neue Tiles erstellt werden. Bereits erstellte Tiles können durch einfaches Anklicken in der Übersicht bearbeitet werden.";
 
   constructor(private tileService: TileService) {
     this.tiles = [ TileEditorComponent.NEW_TILE_PLACEHOLDER ];

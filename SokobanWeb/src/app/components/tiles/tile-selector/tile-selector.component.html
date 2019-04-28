@@ -1,3 +1,5 @@
 <div class="row wrap justify-between standard-padding">
-  <app-tile [size]="tileSize" *ngFor="let tile of tiles" [tile]="tile" (click)="selectTile(tile)"></app-tile>
+  <div *ngFor="let tile of tiles" class="m-1 shadow">
+    <app-tile [size]="tileSize" [tile]="tile" (click)="selectTile(tile)"></app-tile>
+  </div>
 </div>

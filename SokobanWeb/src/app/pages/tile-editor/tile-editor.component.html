@@ -1,14 +1,19 @@
-<div class="row justify-stretch standard-padding">
-  <app-tile-selector
-    [tiles]="tiles"
-    (selection)="setCurrentTile($event)"
-    [ngClass]="currentTile ? 'col-md-8' : 'col-md-12'">
-  </app-tile-selector>
-  <app-tile-detail
-    *ngIf="currentTile"
-    [tile]="currentTile"
-    (onSave)="saveTile($event)"
-    (onDelete)="deleteTile($event)"
-    class="col-md-4">
-  </app-tile-detail>
+<div class="col justify-content-between standard-padding">
+  <div class="row justify-content-end">
+    <app-simple-help-text [title]="helpTitle" [text]="helpText"></app-simple-help-text>
+  </div>
+  <div class="row justify-content-between">
+    <app-tile-selector
+      [tiles]="tiles"
+      (selection)="setCurrentTile($event)"
+      [ngClass]="currentTile ? 'col-md-9' : 'col-md-12'">
+    </app-tile-selector>
+    <app-tile-detail
+      *ngIf="currentTile"
+      [tile]="currentTile"
+      (onSave)="saveTile($event)"
+      (onDelete)="deleteTile($event)"
+      class="col-md-3">
+    </app-tile-detail>
+  </div>
 </div>

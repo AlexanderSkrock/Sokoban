@@ -23,6 +23,7 @@ import { BoxTargetChangeComponent } from './components/maps/box-target-change/bo
 import { PlayerChangeComponent } from './components/maps/player-change/player-change.component';
 import { RenderDirective } from './directives/render.directive';
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import { SimpleHelpTextComponent } from './components/simple-help-text/simple-help-text.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
     BoxTargetChangeComponent,
     PlayerChangeComponent,
     RenderDirective,
+    SimpleHelpTextComponent,
   ],
   imports: [
     BrowserModule,
