@@ -1,10 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import SokobanMap from "../../../data/SokobanMap";
-import {RenderService} from "../../../services/render.service";
 import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
-import RenderJob from "../../../util/RenderJob";
 import Renderable from "../../../util/Renderable";
-import {RenderDirective} from "../../../directives/render.directive";
+import {GameElementService} from "../../../services/game-element.service";
 
 enum SIZE {
   SMALL = "map-small",
@@ -18,18 +16,32 @@ export const MAP_SIZES = SIZE;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent {
+export class MapComponent implements OnInit {
   @Input('map') set setMap(map: SokobanMap) {
     this.map = map;
-    this.mapRenderable = createRenderableFromSokobanMap(map);
+    this.buildRenderable();
   }
-
   @Input()
   size: SIZE;
 
-  map: SokobanMap;
-  mapRenderable: Renderable<CanvasRenderingContext2D>;
-  renderTimeout = RenderDirective.RENDER_ONCE;
+  playerImage: CanvasImageSource;
 
-  constructor() { }
+  boxImage: CanvasImageSource;
+  boxTargetImage: CanvasImageSource;
+  map: SokobanMap;
+
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout = 1000;
+  constructor(private gameElementService: GameElementService) { }
+
+  ngOnInit(): void {
+    this.playerImage = this.gameElementService.getPlayerImage();
+    this.boxImage = this.gameElementService.getBoxImage();
+    this.boxTargetImage = this.gameElementService.getBoxTargetImage();
+    this.buildRenderable();
+  }
+
+  buildRenderable() {
+    this.mapRenderable = createRenderableFromSokobanMap(this.map, this.playerImage, this.boxImage, this.boxTargetImage);
+  }
 }

@@ -1,17 +1,30 @@
 <div class="row justify-between standard-padding">
-  <div>
+  <div class="col-md-9">
     <canvas #canvas [appRender]="mapRenderable" [renderTimeout]="renderTimeout" class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
   </div>
-  <div class="column justify-between">
-    <div *ngIf="currentSelection" class="column standard-padding">
-      <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>
-      <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
-      <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
-      <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
+  <div class="col-md-3">
+    <div class="font-weight-bold">
+      Bearbeitungsoptionen
     </div>
-    <div class="row standard-padding">
-      <button type="button" (click)="emitSave()">Speichern</button>
-      <button type="button" (click)="emitDelete()">Löschen</button>
+    <ng-container
+      *ngIf="currentSelection; then options; else message">
+    </ng-container>
+    <div class="row standard-padding justify-content-around">
+      <button type="button" (click)="emitSave()" class="btn-light btn-outline-primary">Speichern</button>
+      <button type="button" (click)="emitDelete()" class="btn-light btn-outline-primary">Löschen</button>
     </div>
   </div>
 </div>
+
+<ng-template #options>
+  <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>
+  <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
+  <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
+  <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
+</ng-template>
+
+<ng-template #message>
+  <div>
+    Wähle ein Tile aus, um weitere Optionen freizuschalten
+  </div>
+</ng-template>

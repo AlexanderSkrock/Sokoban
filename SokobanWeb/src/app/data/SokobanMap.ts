@@ -9,14 +9,14 @@ export default class SokobanMap {
     map.tiles = createEmpty2DArray(width, height);
     map.playerPosition = undefined;
     map.boxes = [];
-    map.collectibles = [];
+    map.boxTargets = [];
     return map;
   }
 
   id: number;
   playerPosition: Point;
   tiles: Tile[][];
-  collectibles: Point[];
+  boxTargets: Point[];
   boxes: Point[];
 
   constructor(map: SokobanMap = undefined) {
@@ -25,7 +25,7 @@ export default class SokobanMap {
       this.playerPosition = map.playerPosition ? new Point(map.playerPosition.x, map.playerPosition.y) : undefined;
       this.tiles = map.tiles.map(row => row.map(tile => tile ? new Tile(tile) : undefined));
       this.boxes = map.boxes ? map.boxes.map(boxPoint => new Point(boxPoint.x, boxPoint.y)) : [];
-      this.collectibles = map.collectibles ? map.collectibles.map(collectiblePoint => new Point(collectiblePoint.x, collectiblePoint.y)) : [];
+      this.boxTargets = map.boxTargets ? map.boxTargets.map(boxTargetPoint => new Point(boxTargetPoint.x, boxTargetPoint.y)) : [];
     }
   }
 
@@ -59,8 +59,8 @@ export default class SokobanMap {
     return isInMap && tileIsNotSolid && hasNoBox;
   }
 
-  hasCollectibleAt(point: Point): boolean {
-    return this.collectibles.some(colletiblePoint => colletiblePoint.equals(point));
+  hasBoxTargetAt(point: Point): boolean {
+    return this.boxTargets.some(colletiblePoint => colletiblePoint.equals(point));
   }
 
   hasBoxAt(point: Point): boolean {

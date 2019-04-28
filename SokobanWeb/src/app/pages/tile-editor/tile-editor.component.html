@@ -1,4 +1,14 @@
 <div class="row justify-stretch standard-padding">
-  <app-tile-selector [tiles]="tiles" (selection)="setCurrentTile($event)"></app-tile-selector>
-  <app-tile-detail [tile]="currentTile" (onSave)="saveTile($event)" (onDelete)="deleteTile($event)"></app-tile-detail>
+  <app-tile-selector
+    [tiles]="tiles"
+    (selection)="setCurrentTile($event)"
+    [ngClass]="currentTile ? 'col-md-8' : 'col-md-12'">
+  </app-tile-selector>
+  <app-tile-detail
+    *ngIf="currentTile"
+    [tile]="currentTile"
+    (onSave)="saveTile($event)"
+    (onDelete)="deleteTile($event)"
+    class="col-md-4">
+  </app-tile-detail>
 </div>

@@ -19,18 +19,19 @@ import _ from "../../../../../node_modules/lodash"
 import Tile from "../../../data/Tile";
 import RenderJob from "../../../util/RenderJob";
 import Renderable from "../../../util/Renderable";
+import {GameElementService} from "../../../services/game-element.service";
 
 @Component({
   selector: 'app-map-workspace',
   templateUrl: './map-workspace.component.html',
   styleUrls: ['./map-workspace.component.scss']
 })
-export class MapWorkspaceComponent implements AfterViewInit {
+export class MapWorkspaceComponent implements OnInit, AfterViewInit {
   @Input('map') set setMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.map = new EditableSokobanMap(mapClone);
     this.setCanvasSize();
-    this.mapRenderable = createRenderableFromSokobanMap(this.map);
+    this.mapRenderable = createRenderableFromSokobanMap(map, this.playerImage, this.boxImage, this.boxTargetImage);
   }
 
   @Input()
@@ -48,11 +49,21 @@ export class MapWorkspaceComponent implements AfterViewInit {
   map: EditableSokobanMap;
   currentSelection: Point;
   mapRenderable: Renderable<CanvasRenderingContext2D>;
-  renderTimeout: 500;
+  renderTimeout: 250;
 
-  constructor(private mapService: MapService) {
+  playerImage: CanvasImageSource;
+  boxImage: CanvasImageSource;
+  boxTargetImage: CanvasImageSource;
+
+  constructor(private gameElementService: GameElementService) {
     this.onSave = new EventEmitter();
     this.onDelete = new EventEmitter();
+  }
+
+  ngOnInit() {
+    this.playerImage = this.gameElementService.getPlayerImage();
+    this.boxImage= this.gameElementService.getBoxImage();
+    this.boxTargetImage = this.gameElementService.getBoxTargetImage();
   }
 
   ngAfterViewInit(): void {

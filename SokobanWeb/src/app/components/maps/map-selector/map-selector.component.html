@@ -1,3 +1,7 @@
-<div class="row wrap">
-  <app-map *ngFor="let map of maps" [map]="map" (click)="selectMap(map)"></app-map>
+<div class="row standard-padding">
+  <app-map *ngFor="let map of maps"
+           [map]="map"
+           (click)="selectMap(map)"
+           class="card shadow standard-margin">
+  </app-map>
 </div>

@@ -2,22 +2,25 @@ import Renderable from "./Renderable";
 import SokobanMap from "../data/SokobanMap";
 import Point from "../data/Point";
 
-export function createRenderableFromSokobanMap(map: SokobanMap): Renderable<CanvasRenderingContext2D> {
-  return new MapRenderable(map);
+export function createRenderableFromSokobanMap(map: SokobanMap, playerImage: CanvasImageSource, boxImage: CanvasImageSource, boxTargetImage: CanvasImageSource): Renderable<CanvasRenderingContext2D> {
+  return new MapRenderable(map, playerImage, boxImage, boxTargetImage);
 }
 
 class MapRenderable implements Renderable<CanvasRenderingContext2D> {
-  constructor(private map: SokobanMap) { }
+  constructor(private map: SokobanMap, private playerImage: CanvasImageSource, private boxImage: CanvasImageSource, private boxTargetImage: CanvasImageSource) { }
 
   render(renderContext: CanvasRenderingContext2D): void {
     this.clear(renderContext);
     this.renderTiles(renderContext);
+    this.renderBoxTargets(renderContext);
     this.renderBoxes(renderContext);
-    this.renderCollectibles(renderContext);
     this.renderPlayer(renderContext);
   }
 
   renderAt(renderContext: CanvasRenderingContext2D, drawable, point: Point) {
+    if (!renderContext || !drawable) {
+      return;
+    }
     const computed = getComputedStyle(renderContext.canvas);
     const computedCanvasWidth = parseFloat(computed.getPropertyValue("width"));
     const computedCanvasHeight = parseFloat(computed.getPropertyValue("height"));
@@ -29,7 +32,9 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
   }
 
   clear(renderContext: CanvasRenderingContext2D): void {
-    renderContext.clearRect(0, 0, renderContext.canvas.width, renderContext.canvas.height);
+    if(renderContext) {
+      renderContext.clearRect(0, 0, renderContext.canvas.width, renderContext.canvas.height);
+    }
   }
 
   renderTiles(renderContext: CanvasRenderingContext2D): void {
@@ -48,25 +53,19 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
 
   renderBoxes(renderContext: CanvasRenderingContext2D): void {
     this.map.boxes.forEach(boxPosition => {
-      const image = new Image();
-      image.src = '../../assets/favicon.ico';
-      this.renderAt(renderContext, image, boxPosition);
+      this.renderAt(renderContext, this.boxImage, boxPosition);
     });
   }
 
-  renderCollectibles(renderContext: CanvasRenderingContext2D): void {
-    this.map.collectibles.forEach(collectiblePosition => {
-      const image = new Image();
-      image.src = '../../assets/favicon.ico';
-      this.renderAt(renderContext, image, collectiblePosition);
+  renderBoxTargets(renderContext: CanvasRenderingContext2D): void {
+    this.map.boxTargets.forEach(collectiblePosition => {
+      this.renderAt(renderContext, this.boxTargetImage, collectiblePosition);
     });
   }
 
   renderPlayer(renderContext: CanvasRenderingContext2D): void {
     if(this.map.playerPosition) {
-      const image = new Image();
-      image.src = '../../assets/favicon.ico';
-      this.renderAt(renderContext, image, this.map.playerPosition);
+      this.renderAt(renderContext, this.playerImage, this.map.playerPosition);
     }
   }
 }

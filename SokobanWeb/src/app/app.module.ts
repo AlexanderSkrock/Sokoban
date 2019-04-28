@@ -1,12 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
+  import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RoutingModule } from './modules/routing/routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialComponentModulesModule } from './modules/material-component-modules/material-component-modules.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { GameComponent } from './pages/game/game.component';
 import { TileEditorComponent } from './pages/tile-editor/tile-editor.component';
 import { MapEditorComponent } from './pages/map-editor/map-editor.component';
@@ -24,12 +22,12 @@ import { BoxChangeComponent } from './components/maps/box-change/box-change.comp
 import { BoxTargetChangeComponent } from './components/maps/box-target-change/box-target-change.component';
 import { PlayerChangeComponent } from './components/maps/player-change/player-change.component';
 import { RenderDirective } from './directives/render.directive';
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent,
     GameComponent,
     TileEditorComponent,
     MapEditorComponent,
@@ -49,11 +47,12 @@ import { RenderDirective } from './directives/render.directive';
   imports: [
     BrowserModule,
     RoutingModule,
-    MaterialComponentModulesModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    NgbModalModule,
   ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })

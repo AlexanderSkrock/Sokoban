@@ -1,13 +1,13 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MapService} from "../../services/map.service";
 import SokobanMap from "../../data/SokobanMap";
 import PlayableSokobanMap from "../../data/PlayableSokobanMap";
-import {RenderService} from "../../services/render.service";
-import RenderJob from "../../util/RenderJob";
 import {createRenderableFromSokobanMap} from "../../util/MapRenderable";
 import {EAST, NORTH, SOUTH, WEST} from "../../data/Direction";
 import _ from "../../../../node_modules/lodash";
 import Renderable from "../../util/Renderable";
+import {GameElementService} from "../../services/game-element.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 enum KEY {
   LEFT = 'ArrowLeft',
@@ -25,17 +25,29 @@ export class GameComponent implements OnInit, AfterViewInit {
   @ViewChild('canvas')
   canvas: ElementRef;
 
+  @ViewChild('gameWonDialog')
+  gameWonDialog: ElementRef;
+
   maps: SokobanMap[];
   currentMap: PlayableSokobanMap;
   mapRenderable: Renderable<CanvasRenderingContext2D>;
   renderTimeout = 250;
 
-  constructor(private mapService: MapService) {
+  playerImage: CanvasImageSource;
+  boxImage: CanvasImageSource;
+  boxTargetImage: CanvasImageSource;
+
+  hideMapSelector = false;
+
+  constructor(private mapService: MapService, private gameElementService: GameElementService, private modalService: NgbModal) {
     this.maps = [];
   }
 
   ngOnInit() {
-    this.mapService.getMaps().subscribe(maps => this.maps = maps)
+    this.mapService.getMaps().subscribe(maps => this.maps = maps);
+    this.playerImage = this.gameElementService.getPlayerImage();
+    this.boxImage= this.gameElementService.getBoxImage();
+    this.boxTargetImage = this.gameElementService.getBoxTargetImage();
   }
 
   ngAfterViewInit() {
@@ -45,8 +57,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   setCurrentMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.currentMap = new PlayableSokobanMap(mapClone);
-    this.mapRenderable = createRenderableFromSokobanMap(this.currentMap);
+    this.mapRenderable = createRenderableFromSokobanMap(this.currentMap, this.playerImage, this.boxImage, this.boxTargetImage);
     this.setCanvasSize();
+    this.hideMapSelector = true;
   }
 
   setCanvasSize() {
@@ -60,19 +73,42 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:keydown', ['$event'])
   handleKeyEvent(event: KeyboardEvent) {
+    if(!this.currentMap) {
+      return;
+    }
+
     let direction;
     switch (event.key) {
-      case (KEY.UP): { direction = NORTH; break }
-      case (KEY.DOWN): { direction = SOUTH; break }
-      case (KEY.LEFT): { direction = WEST; break }
-      case (KEY.RIGHT): { direction = EAST; break }
+      case (KEY.UP): { direction = NORTH; event.preventDefault(); break }
+      case (KEY.DOWN): { direction = SOUTH; event.preventDefault(); break }
+      case (KEY.LEFT): { direction = WEST; event.preventDefault(); break }
+      case (KEY.RIGHT): { direction = EAST; event.preventDefault(); break }
     }
     if(direction) {
       this.currentMap.translatePlayer(direction);
-      if(this.currentMap.checkWinningCondition()) {
-        alert("Gewonnen");
-        // TODO
+      if(this.currentMap.checkWinningCondition() && !this.modalService.hasOpenModals()) {
+        this.modalService.open(this.gameWonDialog, {
+          size: "lg"
+        });
       }
     }
+  }
+
+  endGame(): void {
+    this.currentMap = undefined;
+    this.hideMapSelector = false;
+  }
+
+  handleMapSelectorToggle(): void {
+    this.hideMapSelector = !this.hideMapSelector;
+  }
+
+  checkWinningCondition(): boolean {
+    return this.currentMap && this.currentMap.checkWinningCondition()
+  }
+
+  closeGameWinDialog(modal) {
+    modal.close();
+    this.endGame();
   }
 }

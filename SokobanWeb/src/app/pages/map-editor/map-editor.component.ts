@@ -16,11 +16,13 @@ export class MapEditorComponent implements OnInit {
   static createNewMapPlaceholder(): SokobanMap {
     const map = SokobanMap.createBlankSokobanMap(MapEditorComponent.DEFAULT_MAP_WIDTH, MapEditorComponent.DEFAULT_MAP_HEIGHT);
     map.tiles = create2DArrayWithDefaultValues(MapEditorComponent.DEFAULT_MAP_WIDTH, MapEditorComponent.DEFAULT_MAP_HEIGHT, (i, j) => {
+      const result = new Tile();
       if ((j > 1 && j < 8 && (i == 4 || i == 5)) || ((j == 4 || j == 5) && i > 1 && i < 8)) {
-        const result = new Tile();
         result.sprite = "../../../assets/black.png";
-        return result;
+      } else {
+        result.sprite = "../../../assets/white.png";
       }
+      return result;
     });
     return map;
   }
@@ -28,7 +30,7 @@ export class MapEditorComponent implements OnInit {
 
   maps: SokobanMap[];
   currentMap: SokobanMap;
-
+  hideMapSelector = false;
   tiles: Tile[];
 
   constructor(private mapService: MapService, private tileService: TileService) {
@@ -47,6 +49,7 @@ export class MapEditorComponent implements OnInit {
     } else {
       this.currentMap = map;
     }
+    this.hideMapSelector = true;
   }
 
   loadTiles(): void {
@@ -74,5 +77,9 @@ export class MapEditorComponent implements OnInit {
     if (map && map.id) {
       this.mapService.deleteMap(map.id).subscribe(() => this.loadMaps());
     }
+  }
+
+  handleMapSelectorToggle(): void {
+    this.hideMapSelector = !this.hideMapSelector;
   }
 }

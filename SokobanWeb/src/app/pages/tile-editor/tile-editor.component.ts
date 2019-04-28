@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Tile from '../../data/Tile';
 import {TileService} from '../../services/tile.service';
+import _ from "../../../../node_modules/lodash";
 
 @Component({
   selector: 'app-tile-editor',
@@ -8,6 +9,7 @@ import {TileService} from '../../services/tile.service';
   styleUrls: ['./tile-editor.component.scss']
 })
 export class TileEditorComponent implements OnInit {
+  static NEW_TILE_PLACEHOLDER = TileEditorComponent.createNewTilePlaceholder();
   static createNewTilePlaceholder(): Tile {
     const placeholder = new Tile();
     placeholder.sprite = '../../../assets/favicon.ico';
@@ -18,7 +20,7 @@ export class TileEditorComponent implements OnInit {
   currentTile: Tile;
 
   constructor(private tileService: TileService) {
-    this.tiles = [ TileEditorComponent.createNewTilePlaceholder() ];
+    this.tiles = [ TileEditorComponent.NEW_TILE_PLACEHOLDER ];
   }
 
   ngOnInit() {
@@ -26,24 +28,19 @@ export class TileEditorComponent implements OnInit {
   }
 
   setCurrentTile(tile: Tile): void {
-    if(!tile) {
-      this.currentTile = undefined;
+    if(tile === TileEditorComponent.NEW_TILE_PLACEHOLDER) {
+      this.currentTile = new Tile();
     } else {
-      const duplicate = new Tile();
-      duplicate.id = tile.id;
-      duplicate.name = tile.name;
-      duplicate.solid = tile.solid;
-      duplicate.sprite = tile.sprite;
-      this.currentTile = duplicate;
+      this.currentTile = _.cloneDeep(tile);
     }
   }
 
   loadTiles(): void {
     this.tileService.getTiles().subscribe(tiles => {
       if (tiles) {
-        this.tiles = [ ...tiles, TileEditorComponent.createNewTilePlaceholder() ];
+        this.tiles = [ ...tiles, TileEditorComponent.NEW_TILE_PLACEHOLDER ];
       } else {
-        this.tiles = [ TileEditorComponent.createNewTilePlaceholder() ];
+        this.tiles = [ TileEditorComponent.NEW_TILE_PLACEHOLDER ];
       }
       this.setCurrentTile(undefined);
     });

@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json({
   limit: "100MB"
 }));
-app.use(express.static("public"));
+app.use("/images", express.static("images"));
 app.use(cors());
 
 app.get("/maps", getMapsHandler);

@@ -25,18 +25,18 @@ export class BoxTargetChangeComponent implements OnInit {
   }
 
   canPlaceBoxTargetAtCurrentPosition(): boolean {
-    return this.map.canPlaceCollectibleAt(this.currentPosition);
+    return this.map.canPlaceBoxTargetAt(this.currentPosition);
   }
 
   hasBoxTargetAtCurrentPosition(): boolean {
-    return this.map.hasCollectibleAt(this.currentPosition);
+    return this.map.hasBoxTargetAt(this.currentPosition);
   }
 
   addBoxTargetAtCurrentPosition(): void {
-    this.map.putCollectibleAt(this.currentPosition);
+    this.map.putBoxTargetAt(this.currentPosition);
   }
 
   removeBoxTargetAtCurrentPosition(): void {
-    this.map.removeCollectibleAt(this.currentPosition);
+    this.map.removeBoxTargetAt(this.currentPosition);
   }
 }
