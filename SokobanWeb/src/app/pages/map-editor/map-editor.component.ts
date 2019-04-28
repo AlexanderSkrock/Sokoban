@@ -34,7 +34,7 @@ export class MapEditorComponent implements OnInit {
   tiles: Tile[];
 
   helpTitle: string = "Hilfe zum Map-Editor";
-  helpText: string = "Hier können neue Maps erstellt werden bzw. bereits erstellte Maps bearbeitet werden. Um eine bestimmte Position der Map anzupassen, muss diese zunächst per Mausklick ausgewählt werden. Im Anschluss werden dann entsprechend des Tiles die verfügbaren Bearbeitungsoptionen eingeblendet.";
+  helpText: string = "Hier können neue Maps erstellt werden bzw. bereits erstellte Maps bearbeitet werden. Um eine bestimmte Position der Map anzupassen, muss diese zunächst per Mausklick ausgewählt werden. Im Anschluss werden dann entsprechend des ausgewählten Tiles die verfügbaren Bearbeitungsoptionen eingeblendet.";
 
   constructor(private mapService: MapService, private tileService: TileService) {
     this.maps = [ MapEditorComponent.NEW_MAP_PLACEHOLDER ];

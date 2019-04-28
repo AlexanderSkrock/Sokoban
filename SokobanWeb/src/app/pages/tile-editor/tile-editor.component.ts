@@ -20,7 +20,7 @@ export class TileEditorComponent implements OnInit {
   currentTile: Tile;
 
   helpTitle: string = "Hilfe zum Tile-Editor";
-  helpText: string = "Hier können über das '+' neue Tiles erstellt werden. Bereits erstellte Tiles können durch einfaches Anklicken in der Übersicht bearbeitet werden.";
+  helpText: string = "Hier können über das '+'-Symbol neue Tiles erstellt werden. Bereits erstellte Tiles können durch einfaches Anklicken in der Übersicht bearbeitet werden.";
 
   constructor(private tileService: TileService) {
     this.tiles = [ TileEditorComponent.NEW_TILE_PLACEHOLDER ];

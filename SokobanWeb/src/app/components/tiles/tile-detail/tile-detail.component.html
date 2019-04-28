@@ -3,9 +3,9 @@
     <div class="form-group">
       <label class="font-weight-bold">
         Sprite
-        <app-tile [size]="tileSize" [tile]="tile"></app-tile>
         <input type="file" name="file" value="" accept=".image/png" (change)="handleFileChange($event)" class="form-control-file">
       </label>
+      <app-tile [size]="tileSize" [tile]="tile"></app-tile>
     </div>
     <div class="form-group">
       <label class="font-weight-bold">

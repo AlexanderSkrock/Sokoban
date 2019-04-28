@@ -3,6 +3,7 @@ import SokobanMap from "../../../data/SokobanMap";
 import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
 import Renderable from "../../../util/Renderable";
 import {GameElementService} from "../../../services/game-element.service";
+import {RenderDirective} from "../../../directives/render.directive";
 
 enum SIZE {
   SMALL = "map-small",
@@ -31,7 +32,7 @@ export class MapComponent implements OnInit {
   map: SokobanMap;
 
   mapRenderable: Renderable<CanvasRenderingContext2D>;
-  renderTimeout = 1000;
+  renderTimeout = 500; // RenderDirective.RENDER_ONCE;
   constructor(private gameElementService: GameElementService) { }
 
   ngOnInit(): void {

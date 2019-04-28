@@ -10,6 +10,9 @@ class MapRenderable implements Renderable<CanvasRenderingContext2D> {
   constructor(private map: SokobanMap, private playerImage: CanvasImageSource, private boxImage: CanvasImageSource, private boxTargetImage: CanvasImageSource) { }
 
   render(renderContext: CanvasRenderingContext2D): void {
+    if(!this.map) {
+      return;
+    }
     this.clear(renderContext);
     this.renderTiles(renderContext);
     this.renderBoxTargets(renderContext);
