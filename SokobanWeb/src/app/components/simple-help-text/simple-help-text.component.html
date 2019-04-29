@@ -1,0 +1,15 @@
+<button type="button" (click)="openDialog()" class="btn btn-info">
+  Hilfe anzeigen
+</button>
+
+<ng-template #helpDialog let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}!</h2>
+  </div>
+  <div class="standard-padding">
+    {{ text }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-outline-primary" (click)="modal.close()">Hilfe schließen</button>
+  </div>
+</ng-template>

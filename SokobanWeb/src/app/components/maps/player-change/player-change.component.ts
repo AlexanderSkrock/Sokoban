@@ -7,7 +7,7 @@ import Point from "../../../data/Point";
   templateUrl: './player-change.component.html',
   styleUrls: ['./player-change.component.scss']
 })
-export class PlayerChangeComponent implements OnInit {
+export class PlayerChangeComponent {
   @Input()
   map: EditableSokobanMap;
 
@@ -15,13 +15,6 @@ export class PlayerChangeComponent implements OnInit {
   currentPosition: Point;
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  currentPositionIsPlaceable(): boolean {
-    return this.map.isPlaceablePoint(this.currentPosition);
-  }
 
   canPlacePlayerAtCurrentPosition(): boolean {
     return this.map.canPlacePlayerAt(this.currentPosition);

@@ -1,15 +1,30 @@
-<div class="row justify-between standard-padding">
-  <div>
-    <canvas #canvas class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
+<div class="row standard-padding">
+  <div class="col-md-8">
+    <canvas #canvas [appRender]="mapRenderable" [renderTimeout]="renderTimeout" class="grid standard-margin" (click)="handleCanvasClick($event)"></canvas>
   </div>
-  <div *ngIf="currentSelection" class="column standard-padding">
-    <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>
-    <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
-    <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
-    <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
-    <div class="row standard-padding">
-      <button type="button" (click)="emitSave()">Speichern</button>
-      <button type="button" (click)="emitDelete()">Löschen</button>
+  <div class="col-md-4">
+    <div class="font-weight-bold">
+      Bearbeitungsoptionen
+    </div>
+    <ng-container
+      *ngIf="currentSelection; then options; else message">
+    </ng-container>
+    <div class="row standard-padding justify-content-around">
+      <button type="button" (click)="emitSave()" class="btn btn-light btn-outline-primary">Speichern</button>
+      <button type="button" (click)="emitDelete()" class="btn btn-danger">Löschen</button>
     </div>
   </div>
 </div>
+
+<ng-template #options>
+  <app-tile-change [map]="map" [currentPosition]="currentSelection" [tiles]="tiles"></app-tile-change>
+  <app-box-change [map]="map" [currentPosition]="currentSelection"></app-box-change>
+  <app-box-target-change [map]="map" [currentPosition]="currentSelection"></app-box-target-change>
+  <app-player-change [map]="map" [currentPosition]="currentSelection"></app-player-change>
+</ng-template>
+
+<ng-template #message>
+  <div>
+    Wähle ein Tile aus um weitere Optionen freizuschalten
+  </div>
+</ng-template>

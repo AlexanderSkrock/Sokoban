@@ -1,23 +1,27 @@
-<div *ngIf="tile">
-  <form #ngForm="ngForm" (submit)="submit(ngForm)">
-    <div class="column justify-around standard-padding">
-      <app-tile [size]="tileSize" [tile]="tile"></app-tile>
-      <label>
+<form #ngForm="ngForm" (submit)="submit(ngForm)">
+  <div class="col justify-content-between standard-padding">
+    <div class="form-group">
+      <label class="font-weight-bold">
         Sprite
-        <input type="file" name="file" value="" accept="image/*" (change)="handleFileChange($event)">
+        <input type="file" name="file" value="" accept=".image/png" (change)="handleFileChange($event)" class="form-control-file">
       </label>
-      <label>
-        Name
-        <input type="text" name="name" [(ngModel)]="tile.name">
-      </label>
-      <label>
-        Solid
-        <input type="checkbox" name="solid" [(ngModel)]="tile.solid">
-      </label>
-      <div class="row wrap justify-around">
-        <button type="submit" class="mat-raised-button">Speichern</button>
-        <button type="button" (click)="deleteTile()">Löschen</button>
-      </div>
+      <app-tile [size]="tileSize" [tile]="tile"></app-tile>
     </div>
-  </form>
-</div>
+    <div class="form-group">
+      <label class="font-weight-bold">
+        Name
+        <input type="text" name="name" [(ngModel)]="tile.name" class="form-control">
+      </label>
+    </div>
+    <div class="form-check">
+      <label class="font-weight-bold">
+        <input type="checkbox" name="solid" [(ngModel)]="tile.solid" class="form-check-input">
+        Solid
+      </label>
+    </div>
+    <div class="row justify-content-around">
+      <button type="submit" class="btn btn-light btn-outline-primary">Speichern</button>
+      <button type="button" (click)="deleteTile()" class="btn btn-danger">Löschen</button>
+    </div>
+  </div>
+</form>

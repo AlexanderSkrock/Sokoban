@@ -1,15 +1,17 @@
-<ng-container
-  *ngIf="currentPositionIsPlaceable(); then options; else message">
-</ng-container>
+<div>
+  <div class="font-weight-bold">
+    Optionen zu Boxen
+  </div>
+  <ng-container
+    *ngIf="canPlaceBoxAtCurrentPosition() || hasBoxAtCurrentPosition(); then options; else message">
+  </ng-container>
+</div>
 
 <ng-template #options>
-  <label>
-    Optionen zur Box an der aktuellen Position
-    <div class="row justify-between">
-      <button *ngIf="canPlaceBoxAtCurrentPosition()" type="button" (click)="addBoxAtCurrentPosition()">Box hinzufügen</button>
-      <button *ngIf="hasBoxAtCurrentPosition()" type="button" (click)="removeBoxAtCurrentPosition()">Box entfernen</button>
-    </div>
-  </label>
+  <div class="row justify-between">
+    <button *ngIf="canPlaceBoxAtCurrentPosition()" type="button" (click)="addBoxAtCurrentPosition()" class="standard-margin btn btn-secondary">Box hinzufügen</button>
+    <button *ngIf="hasBoxAtCurrentPosition()" type="button" (click)="removeBoxAtCurrentPosition()" class="standard-margin btn btn-secondary">Box entfernen</button>
+  </div>
 </ng-template>
 
 <ng-template #message>

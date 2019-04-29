@@ -25,14 +25,14 @@ export default class EditableSokobanMap extends SokobanMap {
     this.boxes = this.boxes.filter(boxPoint => !boxPoint.equals(point));
   }
 
-  putCollectibleAt(point: Point): void  {
-    if (this.canPlaceCollectibleAt(point)) {
-      this.collectibles.push(point);
+  putBoxTargetAt(point: Point): void  {
+    if (this.canPlaceBoxTargetAt(point)) {
+      this.boxTargets.push(point);
     }
   }
 
-  removeCollectibleAt(point: Point): void {
-    this.collectibles = this.collectibles.filter(jewelPoint => !jewelPoint.equals(point));
+  removeBoxTargetAt(point: Point): void {
+    this.boxTargets = this.boxTargets.filter(boxTargetPoint => !boxTargetPoint.equals(point));
   }
 
   placePlayer(point: Point): void {
@@ -46,11 +46,11 @@ export default class EditableSokobanMap extends SokobanMap {
   }
 
   canPlaceBoxAt(point: Point) {
-    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasCollectibleAt(point) && !this.hasPlayerAt(point);
+    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasBoxTargetAt(point) && !this.hasPlayerAt(point);
   }
 
-  canPlaceCollectibleAt(point: Point) {
-    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasCollectibleAt(point);
+  canPlaceBoxTargetAt(point: Point) {
+    return this.isPlaceablePoint(point) && !this.hasBoxAt(point) && !this.hasBoxTargetAt(point);
   }
 
   canPlacePlayerAt(point: Point) {

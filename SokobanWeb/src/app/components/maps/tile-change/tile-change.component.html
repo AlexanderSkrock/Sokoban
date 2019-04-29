@@ -1,14 +1,16 @@
-<ng-container
-  *ngIf="currentPositionIsInMap(); then options; else message">
-</ng-container>
+<div>
+  <div class="font-weight-bold">
+    Optionen zu Tiles
+  </div>
+  <ng-container
+    *ngIf="currentPositionIsInMap(); then options; else message">
+  </ng-container>
+</div>
 
 <ng-template #options>
-  <label>
-    Optionen zum Tile an der aktuellen Position
-    <div class="row justify-between">
-      <app-tile-selector [tiles]="tiles" (selection)="handleSelectionChange($event)"></app-tile-selector>
-    </div>
-  </label>
+  <div class="row justify-between">
+    <app-tile-selector [tiles]="tiles" (selection)="handleSelectionChange($event)"></app-tile-selector>
+  </div>
 </ng-template>
 
 <ng-template #message>

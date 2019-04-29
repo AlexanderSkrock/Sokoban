@@ -1,3 +1,26 @@
-<p>
-  game works!
-</p>
+<div class="col justify-between standard-padding">
+  <div class="row justify-content-between">
+    <button type="button" (click)="handleMapSelectorToggle()" class="btn btn-light btn-outline-primary">
+      Mapauswahl {{ hideMapSelector ? "einblenden" : "ausblenden" }}
+    </button>
+    <app-simple-help-text [title]="helpTitle" [text]="helpText"></app-simple-help-text>
+  </div>
+  <app-map-selector
+    *ngIf="!hideMapSelector"
+    [maps]="maps"
+    (selection)="setCurrentMap($event)">
+  </app-map-selector>
+  <div class="row justify-content-center align-items-center">
+    <canvas #canvas [appRender]="mapRenderable" [renderTimeout]="renderTimeout" class="standard-margin"></canvas>
+  </div>
+</div>
+
+
+<ng-template #gameWonDialog let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">Gewonnen!</h2>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-outline-primary" (click)="closeGameWinDialog(modal)">Spiel beenden</button>
+  </div>
+</ng-template>

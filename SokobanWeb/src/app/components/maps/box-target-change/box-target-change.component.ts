@@ -7,7 +7,7 @@ import Point from "../../../data/Point";
   templateUrl: './box-target-change.component.html',
   styleUrls: ['./box-target-change.component.scss']
 })
-export class BoxTargetChangeComponent implements OnInit {
+export class BoxTargetChangeComponent {
   @Input()
   map: EditableSokobanMap;
 
@@ -16,27 +16,19 @@ export class BoxTargetChangeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
-
-  currentPositionIsPlaceable(): boolean {
-    return this.map.isPlaceablePoint(this.currentPosition);
-  }
-
   canPlaceBoxTargetAtCurrentPosition(): boolean {
-    return this.map.canPlaceCollectibleAt(this.currentPosition);
+    return this.map.canPlaceBoxTargetAt(this.currentPosition);
   }
 
   hasBoxTargetAtCurrentPosition(): boolean {
-    return this.map.hasCollectibleAt(this.currentPosition);
+    return this.map.hasBoxTargetAt(this.currentPosition);
   }
 
   addBoxTargetAtCurrentPosition(): void {
-    this.map.putCollectibleAt(this.currentPosition);
+    this.map.putBoxTargetAt(this.currentPosition);
   }
 
   removeBoxTargetAtCurrentPosition(): void {
-    this.map.removeCollectibleAt(this.currentPosition);
+    this.map.removeBoxTargetAt(this.currentPosition);
   }
 }

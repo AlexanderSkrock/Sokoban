@@ -12,7 +12,7 @@ export class AppComponent {
     new Entry('/game', 'Spielen'),
     new Entry('/tile-editor', 'Tile-Editor'),
     new Entry('/map-editor', 'Map-Editor'),
-    new Entry('/settings', 'Einstellungen'),
+    //new Entry('/settings', 'Einstellungen'),
   ];
   title = 'Sokoban';
 }

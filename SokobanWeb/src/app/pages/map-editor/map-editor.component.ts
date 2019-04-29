@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import SokobanMap from "../../data/SokobanMap";
 import {MapService} from "../../services/map.service";
 import Tile from "../../data/Tile";
-import {create2DArrayWithDefaultValues} from "../../data/Arrays";
+import {create2DArrayWithDefaultValues} from "../../util/Arrays";
 import {TileService} from "../../services/tile.service";
 
 @Component({
@@ -16,11 +16,13 @@ export class MapEditorComponent implements OnInit {
   static createNewMapPlaceholder(): SokobanMap {
     const map = SokobanMap.createBlankSokobanMap(MapEditorComponent.DEFAULT_MAP_WIDTH, MapEditorComponent.DEFAULT_MAP_HEIGHT);
     map.tiles = create2DArrayWithDefaultValues(MapEditorComponent.DEFAULT_MAP_WIDTH, MapEditorComponent.DEFAULT_MAP_HEIGHT, (i, j) => {
+      const result = new Tile();
       if ((j > 1 && j < 8 && (i == 4 || i == 5)) || ((j == 4 || j == 5) && i > 1 && i < 8)) {
-        const result = new Tile();
         result.sprite = "../../../assets/black.png";
-        return result;
+      } else {
+        result.sprite = "../../../assets/white.png";
       }
+      return result;
     });
     return map;
   }
@@ -28,8 +30,11 @@ export class MapEditorComponent implements OnInit {
 
   maps: SokobanMap[];
   currentMap: SokobanMap;
-
+  hideMapSelector = false;
   tiles: Tile[];
+
+  helpTitle: string = "Hilfe zum Map-Editor";
+  helpText: string = "Hier können neue Maps erstellt werden bzw. bereits erstellte Maps bearbeitet werden. Um eine bestimmte Position der Map anzupassen, muss diese zunächst per Mausklick ausgewählt werden. Im Anschluss werden dann entsprechend des ausgewählten Tiles die verfügbaren Bearbeitungsoptionen eingeblendet.";
 
   constructor(private mapService: MapService, private tileService: TileService) {
     this.maps = [ MapEditorComponent.NEW_MAP_PLACEHOLDER ];
@@ -47,6 +52,7 @@ export class MapEditorComponent implements OnInit {
     } else {
       this.currentMap = map;
     }
+    this.hideMapSelector = true;
   }
 
   loadTiles(): void {
@@ -74,5 +80,9 @@ export class MapEditorComponent implements OnInit {
     if (map && map.id) {
       this.mapService.deleteMap(map.id).subscribe(() => this.loadMaps());
     }
+  }
+
+  handleMapSelectorToggle(): void {
+    this.hideMapSelector = !this.hideMapSelector;
   }
 }

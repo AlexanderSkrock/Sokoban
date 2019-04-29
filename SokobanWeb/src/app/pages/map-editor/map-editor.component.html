@@ -1,4 +1,22 @@
-<div class="row justify-between">
-  <app-map-selector [maps]="maps" (selection)="setCurrentMap($event)"></app-map-selector>
-  <app-map-workspace *ngIf="currentMap" [map]="currentMap" [tiles]="tiles" (onSave)="saveMap($event)" (onDelete)="deleteMap($event)"></app-map-workspace>
+<div class="col justify-content-between standard-padding">
+  <div class="row justify-content-between">
+    <button type="button" (click)="handleMapSelectorToggle()" class="btn btn-light btn-outline-primary">
+      Mapauswahl {{ hideMapSelector ? "einblenden" : "ausblenden" }}
+    </button>
+    <app-simple-help-text [title]="helpTitle" [text]="helpText"></app-simple-help-text>
+  </div>
+  <app-map-selector
+    *ngIf="!hideMapSelector"
+    [maps]="maps"
+    (selection)="setCurrentMap($event)"
+    [ngClass]="currentMap ? 'col-md-3' : 'col-md-12'">
+  </app-map-selector>
+  <app-map-workspace
+    *ngIf="currentMap"
+    [map]="currentMap"
+    [tiles]="tiles"
+    (onSave)="saveMap($event)"
+    (onDelete)="deleteMap($event)"
+    class="col-md-9">
+  </app-map-workspace>
 </div>

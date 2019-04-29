@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import SokobanMap from "../../../data/SokobanMap";
-import {RenderService} from "../../../services/render.service";
-import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
-import RenderJob from "../../../data/RenderJob";
+import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
+import Renderable from "../../../util/Renderable";
+import {GameElementService} from "../../../services/game-element.service";
+import {RenderDirective} from "../../../directives/render.directive";
 
 enum SIZE {
   SMALL = "map-small",
@@ -16,33 +17,32 @@ export const MAP_SIZES = SIZE;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnDestroy {
+export class MapComponent implements OnInit {
   @Input('map') set setMap(map: SokobanMap) {
     this.map = map;
-    if(this.renderJob) {
-      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.map));
-    }
+    this.buildRenderable();
   }
-
   @Input()
   size: SIZE;
 
-  @ViewChild('canvas')
-  canvas: ElementRef;
+  playerImage: CanvasImageSource;
 
+  boxImage: CanvasImageSource;
+  boxTargetImage: CanvasImageSource;
   map: SokobanMap;
 
-  renderJob: RenderJob<CanvasRenderingContext2D>;
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout = 500; // RenderDirective.RENDER_ONCE;
+  constructor(private gameElementService: GameElementService) { }
 
-  constructor(private mapRenderService: RenderService<CanvasRenderingContext2D>) { }
-
-  ngAfterViewInit() {
-    const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.renderJob = this.mapRenderService.createRenderJob(renderContext, createRenderableFromSokobanMap(this.map));
-    this.renderJob.startRendering();
+  ngOnInit(): void {
+    this.playerImage = this.gameElementService.getPlayerImage();
+    this.boxImage = this.gameElementService.getBoxImage();
+    this.boxTargetImage = this.gameElementService.getBoxTargetImage();
+    this.buildRenderable();
   }
 
-  ngOnDestroy(): void {
-    this.mapRenderService.deleteRenderJob(this.renderJob);
+  buildRenderable() {
+    this.mapRenderable = createRenderableFromSokobanMap(this.map, this.playerImage, this.boxImage, this.boxTargetImage);
   }
 }

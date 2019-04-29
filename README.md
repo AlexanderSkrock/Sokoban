@@ -22,3 +22,8 @@ Dieses Teilprojekt ist ein NodeJS-Server zum Bereitstellen und Persistieren der 
 ## SokobanWeb
 
 Dieses Teilprojekt ist eine Ausprägung des Spiels als Angular-Anwendung
+
+## Sprites
+Alle hier nicht aufgeführten Sprites wurden selbst erstellt.
+- [Box](https://www.bienenfisch-design.de/wp-content/uploads/2018/06/wood-textures-005.jpg)
+- [Spieler](https://img00.deviantart.net/4b3b/i/2016/050/7/6/lsw_s_top_down_base_by_hyomatanzaki-d9sb1b3.png)

@@ -1,1 +1,1 @@
-[{"name":"green","sprite":"1.png","id":1},{"name":"htw","solid":true,"sprite":"2.png","id":2},{"name":"kanban","solid":false,"sprite":"4.png","id":4},{"id":3,"name":"haupt","solid":true,"sprite":"3.png"}]
+[{"name":"soil","sprite":"6.png","id":6},{"name":"grass","id":1,"sprite":"1.png"},{"name":"cobble","id":2,"solid":true,"sprite":"2.png"},{"name":"flowers","id":4,"solid":false,"sprite":"4.png"},{"name":"water","id":3,"solid":true,"sprite":"3.png"}]

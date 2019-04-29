@@ -12,23 +12,26 @@ import {
 import Point from "../../../data/Point";
 import EditableSokobanMap from "../../../data/EditableSokobanMap";
 import {RenderService} from "../../../services/render.service";
-import {createRenderableFromSokobanMap} from "../../../data/MapRenderable";
+import {createRenderableFromSokobanMap} from "../../../util/MapRenderable";
 import {MapService} from "../../../services/map.service";
 import SokobanMap from "../../../data/SokobanMap";
 import _ from "../../../../../node_modules/lodash"
 import Tile from "../../../data/Tile";
-import RenderJob from "../../../data/RenderJob";
+import RenderJob from "../../../util/RenderJob";
+import Renderable from "../../../util/Renderable";
+import {GameElementService} from "../../../services/game-element.service";
 
 @Component({
   selector: 'app-map-workspace',
   templateUrl: './map-workspace.component.html',
   styleUrls: ['./map-workspace.component.scss']
 })
-export class MapWorkspaceComponent implements AfterViewInit, OnDestroy {
+export class MapWorkspaceComponent implements OnInit, AfterViewInit {
   @Input('map') set setMap(map: SokobanMap) {
     const mapClone = _.cloneDeep(map);
     this.map = new EditableSokobanMap(mapClone);
-    this.setUpRendering();
+    this.buildRenderable();
+    this.setCanvasSize();
   }
 
   @Input()
@@ -44,31 +47,36 @@ export class MapWorkspaceComponent implements AfterViewInit, OnDestroy {
   canvas: ElementRef;
 
   map: EditableSokobanMap;
-
   currentSelection: Point;
+  mapRenderable: Renderable<CanvasRenderingContext2D>;
+  renderTimeout: 250;
 
-  renderJob: RenderJob<CanvasRenderingContext2D>;
+  playerImage: CanvasImageSource;
+  boxImage: CanvasImageSource;
+  boxTargetImage: CanvasImageSource;
 
-  constructor(private mapService: MapService, private mapRenderService: RenderService<CanvasRenderingContext2D>) {
+  constructor(private gameElementService: GameElementService) {
     this.onSave = new EventEmitter();
     this.onDelete = new EventEmitter();
   }
 
-  ngAfterViewInit() {
-    const renderContext = this.canvas.nativeElement.getContext('2d');
-    this.renderJob = this.mapRenderService.createRenderJob(renderContext, createRenderableFromSokobanMap(this.map));
-    this.renderJob.startRendering(500);
+  ngOnInit() {
+    this.playerImage = this.gameElementService.getPlayerImage();
+    this.boxImage= this.gameElementService.getBoxImage();
+    this.boxTargetImage = this.gameElementService.getBoxTargetImage();
+    this.buildRenderable();
   }
 
-  ngOnDestroy(): void {
-    this.mapRenderService.deleteRenderJob(this.renderJob);
+  ngAfterViewInit(): void {
+    this.setCanvasSize();
   }
 
-  setUpRendering() {
-    if(this.renderJob) {
-      this.renderJob.setRenderable(createRenderableFromSokobanMap(this.map));
-    }
-    if(this.canvas) {
+  buildRenderable(): void {
+    this.mapRenderable = createRenderableFromSokobanMap(this.map, this.playerImage, this.boxImage, this.boxTargetImage);
+  }
+
+  setCanvasSize() {
+    if(this.canvas && this.map) {
       const tileSize = 64;
       const canvasElement = this.canvas.nativeElement;
       canvasElement.width = this.map.getWidth() * tileSize;

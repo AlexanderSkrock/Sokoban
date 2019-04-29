@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {GameElementService} from "../../services/game-element.service";
 
 @Component({
   selector: 'app-welcome',
@@ -6,10 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  gameElements = [];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private gameElementService: GameElementService) {
   }
 
+  ngOnInit() {
+    this.gameElements = [
+      {
+        name: "Spieler",
+        image: this.gameElementService.getPlayerImage(),
+      },
+      {
+        name: "Box",
+        image: this.gameElementService.getBoxImage(),
+      },
+      {
+        name: "Boxziel",
+        image: this.gameElementService.getBoxTargetImage(),
+      },
+    ];
+  }
 }

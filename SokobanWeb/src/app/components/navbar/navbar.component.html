@@ -1,13 +1,16 @@
-<mat-toolbar class="mat-toolbar mat-primary">
-  <span>
-    Sokoban
-  </span>
-  <span class="fill-remaining-space"></span>
-  <a
-    *ngFor="let entry of entries"
-    [routerLink]="entry.path"
-    class="mat-button navbar-entry"
-    >
-    {{ entry.title }}
-  </a>
-</mat-toolbar>
+<nav class="navbar navbar-light bg-light shadow fixed-top row justify-content-between">
+  <div>
+    <img src="../../../favicon.png"/>
+    <span class="font-weight-bold">
+      Sokoban
+    </span>
+  </div>
+  <div class="row justify-content-end align-items-end flex-wrap">
+    <div *ngFor="let entry of entries" class="nav-item">
+      <a [routerLink]="entry.path"
+         class="nav-link">
+        {{ entry.title }}
+      </a>
+    </div>
+  </div>
+</nav>

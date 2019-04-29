@@ -1,3 +1,26 @@
-<p>
-  welcome works!
-</p>
+<div class="h-100 w-100 col justify-content-center align-items-center">
+  <div class="w-100 row justify-content-center align-items-center">
+    <div class="w-50 text-center card standard-padding shadow">
+      <h2 class="card-title">
+        Sokoban
+      </h2>
+      <p class="card-body">
+        Das Ziel des Spiels ist es, mit der Spielfigur, dem Sokoban, die verstreuten Kisten mit möglichst wenig Zügen an ihre vorgesehenen Plätze zu verschieben.
+        <br/>
+        Der Sokoban ist nur in der Lage eine einzige Kiste vorwärts zu schieben. Ihm ist es aber nicht möglich, eine Kiste zu sich zu ziehen oder sie anderweitig zu bewegen.
+      </p>
+    </div>
+  </div>
+  <div class="w-100 row justify-content-center align-items-center">
+    <div class="w-50 vert-row card shadow flex-wrap">
+      <div class="col-md-4 text-center standard-padding" *ngFor="let element of gameElements">
+        <h2 class="card-title">
+          {{ element.name }}
+        </h2>
+        <div>
+          <img [src]="element.image.src" alt="Kein Bild verfügbar" class="card-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
