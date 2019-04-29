@@ -1,13 +1,16 @@
-<nav class="navbar navbar-light bg-light shadow fixed-top">
-  <img src="../../../favicon.png"/>
-  <span class="font-weight-bold">
-    Sokoban
-  </span>
-  <span class="fill-remaining-space"></span>
-  <div *ngFor="let entry of entries" class="nav-item">
-    <a [routerLink]="entry.path"
-      class="nav-link">
-      {{ entry.title }}
-    </a>
+<nav class="navbar navbar-light bg-light shadow fixed-top row justify-content-between">
+  <div>
+    <img src="../../../favicon.png"/>
+    <span class="font-weight-bold">
+      Sokoban
+    </span>
+  </div>
+  <div class="row justify-content-end align-items-end flex-wrap">
+    <div *ngFor="let entry of entries" class="nav-item">
+      <a [routerLink]="entry.path"
+         class="nav-link">
+        {{ entry.title }}
+      </a>
+    </div>
   </div>
 </nav>
